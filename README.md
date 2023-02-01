@@ -3,7 +3,7 @@ Repository for nft related project
 
 ## Quick start
 
-The install dependencies:
+Firstly you have to install dependencies:
 
 ```sh
 npm install
