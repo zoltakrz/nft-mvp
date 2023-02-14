@@ -1,5 +1,3 @@
-import React from "react";
-
 export function Loading() {
   return (
     <div
@@ -10,7 +8,7 @@ export function Loading() {
         left: 0,
         width: "100%",
         height: "100%",
-        background: "rgba(255, 255, 255, 0.5)",
+        background: "rgba(255, 255, 255, 0.5)"
       }}
     >
       <div
@@ -23,7 +21,7 @@ export function Loading() {
           height: "50px",
           marginLeft: "-50px",
           marginTop: " -25px",
-          textAlign: "center",
+          textAlign: "center"
         }}
       >
         <div className="spinner-border" role="status">
