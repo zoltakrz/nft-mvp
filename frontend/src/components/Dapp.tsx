@@ -4,6 +4,8 @@ import { ethers } from 'ethers';
 // We import the contract's artifacts and address here, as we are going to be
 // using them with ethers
 import TokenArtifact from '../contracts/Token.json';
+import TestArtifact from '../contracts/Test.json';
+
 import contractAddress from '../contracts/contract-address.json';
 // All the logic of this dapp is contained in the Dapp component.
 // These other components are just presentational ones: they don't have any
@@ -15,10 +17,15 @@ import { Transfer } from './Transfer';
 import { TransactionErrorMessage } from './TransactionErrorMessage';
 import { WaitingForTransactionMessage } from './WaitingForTransactionMessage';
 import { NoTokensMessage } from './NoTokensMessage';
+import { Console } from 'console';
+import { timingSafeEqual } from 'crypto';
+import { TestConnection } from './TestConnection';
 // This is the Hardhat Network id that we set in our hardhat.config.js.
 // Here's a list of network ids https://docs.metamask.io/guide/ethereum-provider.html#properties
 // to use when deploying to other networks.
-const HARDHAT_NETWORK_ID = '1337';
+//const HARDHAT_NETWORK_ID = '1337';
+const HARDHAT_NETWORK_ID = '1320';//testnet on azure
+//const TEST_Contract_Address = '0xB8AC4a1206D2541AF24C4C7ed07559473055E697';
 // This is an error code that indicates that the user canceled a transaction
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 type DappState = any & { selectedAddress: any } & { tokenData: { name: any, symbol: any } } & {
@@ -39,6 +46,9 @@ type DappState = any & { selectedAddress: any } & { tokenData: { name: any, symb
 export class Dapp extends React.Component<{}, DappState> {
   initialState: Readonly<any>;
   private _token: ethers.Contract | undefined;
+  private _testContract: ethers.Contract | undefined;
+
+
   private _provider: ethers.providers // We'll use ethers to interact with the Ethereum network and our contract
   .Web3Provider | undefined;
   private _pollDataInterval: NodeJS.
@@ -57,7 +67,8 @@ export class Dapp extends React.Component<{}, DappState> {
       // The ID about transactions being sent, and any possible error with them
       txBeingSent: undefined,
       transactionError: undefined,
-      networkError: undefined
+      networkError: undefined,
+      connectivityStatus :  undefined
     };
     this.state = this.initialState;
   }
@@ -94,21 +105,30 @@ export class Dapp extends React.Component<{}, DappState> {
         <div className="row">
           <div className="col-12">
             <h1>
-              {this.state.tokenData.name} ({this.state.tokenData.symbol})
+              {/* {this.state.tokenData.name} ({this.state.tokenData.symbol}) */}
             </h1>
             <p>
               Welcome <b>{this.state.selectedAddress}</b>, you have{' '}
               <b>
-                {this.state.balance.toString()} {this.state.tokenData.symbol}
+            
+               {this.state.balance} {' '}
+              </b>
+              <b>
+            
+                {this.state.tokenData.symbol}   ({this.state.tokenData.chainId} )
               </b>
               .
             </p>
           </div>
         </div>
+        <div>
+    <TestConnection testConnection={()=>this.testConnectivityToBlockchain()} connectivityStatus = {this.state.connectivityStatus}/>
 
+          
+        </div>
         <hr />
 
-        <div className="row">
+        {/* <div className="row">
           <div className="col-12">
             {this.state.txBeingSent && (
               <WaitingForTransactionMessage txHash={this.state.txBeingSent} />
@@ -136,7 +156,7 @@ export class Dapp extends React.Component<{}, DappState> {
               />
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }
@@ -150,14 +170,26 @@ export class Dapp extends React.Component<{}, DappState> {
     // dapp to the user's wallet, and initializes it.
     // To connect to the user's wallet, we have to run this method.
     // It returns a promise that will resolve to the user's address.
+    console.log("connecting to metamask...");
+    
     const [selectedAddress] = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    console.log("Address:");
+
+    console.log("Address: "+ selectedAddress);
+
     // Once we have the address, we can initialize the application.
     // First we check the network
+    console.log("_checkNetwork:");
+
     if (!this._checkNetwork()) {
       return;
     }
+    console.log("_initialize:");
+
     this._initialize(selectedAddress);
     // We reinitialize it whenever the user changes their account.
+    console.log("accountsChanged:");
+
     window.ethereum.on('accountsChanged', ([newAddress]: any) => {
       this._stopPollingData();
       // `accountsChanged` event can be triggered with an undefined newAddress.
@@ -178,28 +210,39 @@ export class Dapp extends React.Component<{}, DappState> {
   _initialize(userAddress: any) {
     // This method initializes the dapp
     // We first store the user's address in the component's state
-    this.setState({
-      selectedAddress: userAddress
-    });
+    this.setState({selectedAddress: userAddress});
+  
     // Then, we initialize ethers, fetch the token's data, and start polling
     // for the user's balance.
     // Fetching the token data and the user's balance are specific to this
     // sample project, but you can reuse the same initialization pattern.
+    console.log("_initializeEthers:");
     this._initializeEthers();
-    this._getTokenData();
-    this._startPollingData();
+    console.log("_getTokenData:");
+    this._getTokenDataForAddress(userAddress);
+    //this._getTokenData();
+    console.log("_startPollingData:");
+   // this._startPollingData();
   }
   async _initializeEthers() {
     // We first initialize ethers by creating a provider using window.ethereum
     this._provider = new ethers.providers.Web3Provider(window.ethereum);
     // Then, we initialize the contract using that provider and the token's
     // artifact. You can do this same thing with your contracts.
-    this._token = new ethers.Contract(
-      contractAddress.Token,
-      TokenArtifact.abi,
+    // this._token = new ethers.Contract(
+    //   contractAddress.Token,
+    //   TokenArtifact.abi,
+    //   this._provider.getSigner(0)
+    // );
+
+    this._testContract = new ethers.Contract(
+      contractAddress.Test,
+      TestArtifact.abi,
       this._provider.getSigner(0)
     );
   }
+
+
   // The next two methods are needed to start and stop polling data. While
   // the data being polled here is specific to this example, you can use this
   // pattern to read any data from your contracts.
@@ -218,10 +261,48 @@ export class Dapp extends React.Component<{}, DappState> {
   }
   // The next two methods just read from the contract and store the results
   // in the component state.
+  async _getTokenDataForAddress(userAddress: any) {
+
+    const balance= await this._provider?.getBalance(userAddress);
+    const network =  await this._provider?.getNetwork();
+   // const name= await this._provider?..getBalance(this.state.selectedAddress);
+   this.setState({ balance: balance?.toString });
+
+    const name = network?.name;//await this._token?.name();
+    const symbol = "ETHZ";// await this._token?.symbol();
+    const chainid = network?.chainId;// await this._token?.symbol();
+
+   
+
+    this.setState({ tokenData: { name, symbol, chainid } });
+    console.log("Symbol:" + symbol);
+    console.log("name:" + name);
+
+   
+
+    
+  }
+
+  async testConnectivityToBlockchain()
+  {
+
+    try {
+      const test = await this._testContract?.hello("test call");
+      console.log("contract call:" + test);
+      this.setState({connectivityStatus : "Successful"})
+    }
+    catch(e) {
+      console.log(e);
+      this.setState({connectivityStatus : e})
+    }
+   
+  }
+
   async _getTokenData() {
-    const name = await this._token?.name();
-    const symbol = await this._token?.symbol();
-    this.setState({ tokenData: { name, symbol } });
+
+   
+     await this._getTokenDataForAddress(this.state.selectedAddress);
+    
   }
   async _updateBalance() {
     const balance = await this._token?.balanceOf(this.state.selectedAddress);
