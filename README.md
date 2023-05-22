@@ -1,5 +1,37 @@
 # nft-mvp
-Repository for nft related project
+Repository for nft related project containing 2 projects
+
+# cert-viewer-app
+Application for viewing certificates from blockchain, to access use:
+
+```sh
+cd cert-viewer-app
+```
+## Quick start
+
+To install dependencies:
+
+```sh
+npm install
+```
+
+To run:
+
+```sh
+npm start
+```
+
+## Local Variables
+- npm 9.6.7
+- react 18.2.0
+
+# poc
+
+Application for deploying and testing scripts on blockchain, to access use:
+
+```sh
+cd poc
+```
 
 ## Quick start
 
@@ -76,4 +108,3 @@ If you need help with this project, or with Hardhat in general, please read [thi
 
 For the latest news about Hardhat, [follow us on Twitter](https://twitter.com/HardhatHQ), and don't forget to star [our GitHub repository](https://github.com/NomicFoundation/hardhat)!
 
-**Happy _building_!**
