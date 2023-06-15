@@ -33,9 +33,7 @@ jobs:
         # npm run test --if-present
    
       - name: Zip artifact 
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r node-app.zip node-app
+        run: zip node-app.zip ./* -r
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -57,9 +55,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact
-        uses: montudor/action-zip@v1
-        with:
-          args: unzip -qq node-app.zip -d node-app
+        run: unzip node-app.zip
           
       - name: Remove zip
         run: rm node-app.zip
