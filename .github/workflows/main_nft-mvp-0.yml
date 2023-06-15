@@ -9,10 +9,6 @@ on:
       - main
   workflow_dispatch:
   
-defaults:
-  run:
-    working-directory: cert-viewer-app
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,12 +23,14 @@ jobs:
           node-version: '16.x'
 
       - name: npm install, build, and test
+        working-directory: cert-viewer-app
         run: |
          npm install
          npm run build --if-present
         # npm run test --if-present
    
       - name: Zip artifact 
+        working-directory: cert-viewer-app
         run: zip -r node-app.zip ./*
         
       - name: Upload artifact for deployment job
