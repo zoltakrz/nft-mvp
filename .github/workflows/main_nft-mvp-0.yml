@@ -33,7 +33,7 @@ jobs:
         # npm run test --if-present
    
       - name: Zip artifact 
-        run: zip -r node-app.zip 
+        run: zip -r node-app.zip ./*
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
