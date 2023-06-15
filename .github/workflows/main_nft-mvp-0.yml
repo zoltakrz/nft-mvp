@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: cert-viewer-app/node-app.zip 
+          path: node-app.zip 
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,10 +51,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
-          path: ./cert-viewer-app/node-app.zip 
           
       - name: Unzip artifact
-        working-directory: cert-viewer-app
         run: unzip node-app.zip
           
       - name: Remove zip
