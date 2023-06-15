@@ -51,6 +51,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
+          path: ./cert-viewer-app/node-app.zip 
           
       - name: Unzip artifact
         run: unzip ./home/runner/work/nft-mvp/nft-mvp/node-app
