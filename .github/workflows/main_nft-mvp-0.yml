@@ -32,14 +32,16 @@ jobs:
          npm run build --if-present
         # npm run test --if-present
    
-      - name: zip artifact 
-        run: zip -r node-app.zip 
+      - name: Zip artifact 
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r node-app.zip node-app
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: node-app.zip
+          path: node-app.zip 
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,10 +55,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
+
       - name: Unzip artifact
-        run: |
-         unzip node-app.zip
-         rm node-app.zip
+      - uses: montudor/action-zip@v1
+        with:
+          args: unzip -qq node-app.zip -d node-app
+      - run: rm node-app.zip
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
