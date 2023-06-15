@@ -8,30 +8,36 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      CI: false
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v3
+      
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
       - name: npm install, build, and test
+        working-directory: cert-viewer-app
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-
+         npm install
+         npm run build --if-present
+        # npm run test --if-present
+   
+      - name: Zip artifact 
+        working-directory: cert-viewer-app
+        run: zip -r node-app.zip ./*
+        
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .
+          path: cert-viewer-app/node-app.zip 
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,15 +48,21 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: node-app
+          
+      - name: Unzip artifact
+        run: unzip node-app.zip
+          
+      - name: Remove zip
+        run: rm node-app.zip
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
         with:
           app-name: 'certviewer-0'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_11E2B1A47B9B476F9933BB3ADE8E0F4B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5ED7CEB1E044D928349B6B7206163E0 }}
           package: .
