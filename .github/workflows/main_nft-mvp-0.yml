@@ -54,7 +54,7 @@ jobs:
           path: ./cert-viewer-app/node-app.zip 
           
       - name: Unzip artifact
-        run: unzip ./home/runner/work/nft-mvp/nft-mvp/cert-viewer-app/node-app.zip
+        run: unzip /home/runner/work/nft-mvp/nft-mvp/cert-viewer-app/node-app
           
       - name: Remove zip
         run: rm node-app.zip
