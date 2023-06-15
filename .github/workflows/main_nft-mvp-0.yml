@@ -61,7 +61,7 @@ jobs:
         run: rm node-app.zip
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
           app-name: 'nft-mvp-0'
