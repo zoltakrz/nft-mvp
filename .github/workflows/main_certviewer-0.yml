@@ -64,5 +64,7 @@ jobs:
         with:
           app-name: 'certviewer-0'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B5ED7CEB1E044D928349B6B7206163E0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_11E2B1A47B9B476F9933BB3ADE8E0F4B }}
           package: .
+          
+          
