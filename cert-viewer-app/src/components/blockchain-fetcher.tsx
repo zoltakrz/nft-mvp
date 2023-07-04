@@ -73,5 +73,11 @@ export async function getCertificates(email: string) {
         return certificate
     })
 
+    if (certificates.length == 1) {
+        console.log("There is " + certificates.length + " certificate for: " + email);
+    } else {
+        console.log("There are " + certificates.length + " certificates for: " + email);
+    }
+
     return certificates
 }

@@ -20,8 +20,8 @@ export const EmailForm = () => {
     });
 
     const onSubmit = (data: FormValues) => {
-        console.log("Fetching certificates for: " + data.email);
-        email = data.email;
+        email = data.email.toLowerCase();
+        console.log("Fetching certificates for: " + email);
     };
 
     const returnToForm = () => {
