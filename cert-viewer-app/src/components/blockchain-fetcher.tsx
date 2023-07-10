@@ -15,7 +15,7 @@ interface CertificateContract {
 }
 
 const mintedTokenURLPrefix = "https://apigateway-webapp.azurewebsites.net/blockscout/token/0x70c0b60e84bdeec72e855325521d7d51f105239f/instance/";
-const webServiceAdress = 'ws://cx04.westeurope.cloudapp.azure.com:8546';
+const webServiceAdress = 'wss://apigateway-webapp.azurewebsites.net';
 const smartContractAdress = "0x70C0B60E84BDeeC72E855325521d7D51F105239f";
 
 async function getResult(hashedEmail: string) {
