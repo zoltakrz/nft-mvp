@@ -14,7 +14,7 @@ interface CertificateContract {
     tokenId: string;
 }
 
-const mintedTokenURLPrefix = "https://cx04.westeurope.cloudapp.azure.com:4001/token/0x70c0b60e84bdeec72e855325521d7d51f105239f/instance/";
+const mintedTokenURLPrefix = "https://apigateway-webapp.azurewebsites.net/blockscout/token/0x70c0b60e84bdeec72e855325521d7d51f105239f/instance/";
 const webServiceAdress = 'ws://cx04.westeurope.cloudapp.azure.com:8546';
 const smartContractAdress = "0x70C0B60E84BDeeC72E855325521d7D51F105239f";
 
@@ -73,7 +73,7 @@ export async function getCertificates(email: string) {
         return certificate
     })
 
-    if (certificates.length == 1) {
+    if (certificates.length === 1) {
         console.log("There is " + certificates.length + " certificate for: " + email);
     } else {
         console.log("There are " + certificates.length + " certificates for: " + email);

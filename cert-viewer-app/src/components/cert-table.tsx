@@ -29,7 +29,7 @@ export const CertTable = ({ email }: FormValues) => {
     setState('loading');
     getCertificates(email)
       .then((res) => {
-        if(res.length == 0) {
+        if(res.length === 0) {
           setNoCertAlert("Certificates for that email not found")
         }
         setState('success');
