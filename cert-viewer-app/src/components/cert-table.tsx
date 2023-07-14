@@ -30,7 +30,7 @@ export const CertTable = ({ email }: FormValues) => {
     getCertificates(email)
       .then((res) => {
         if(res.length === 0) {
-          setNoCertAlert("Certificates for that email not found. Currently only Capgemini FS Poland organization is inlcuded.")
+          setNoCertAlert("Certificates for that email not found. Currently only Capgemini FS Poland organization is included.")
         }
         setState('success');
         setCertificates(res);
