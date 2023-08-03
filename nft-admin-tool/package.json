@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "ethers": "^6.7.0",
+    "js-sha3": "^0.8.0",
+    "keccak256": "^1.0.6",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1"
+  }
+}

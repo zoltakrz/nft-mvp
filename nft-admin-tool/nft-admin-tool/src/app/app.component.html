@@ -1,0 +1,35 @@
+<h1>Architects Excell Data Upload</h1>
+<br><br><br>
+
+<input type = "file" (change)="ReadExcel($event)" >
+
+<br><br><br>
+
+<table class="table table-striped">  
+  <thead>  
+      <tr>  
+        <th>email</th>
+        <th>hashedEmail</th>	
+        <th>firstName</th>
+        <th>lastName</th>	
+        <th>certType</th>	
+        <th>certLevel</th>
+        <th>json_string</th> 
+        <th>json_base64</th>  
+      </tr>  
+  </thead>  
+  <tbody>  
+    <tr *ngFor="let user of nft_users">  
+      <td>{{ user.email }} </td>  
+      <td>{{ user.hashedEmail }} </td>  
+      <td>{{ user.firstName }} </td>  
+      <td>{{ user.lastName }}</td>  
+      <td>{{ user.certType}} </td>	
+      <td>{{ user.certLevel}} </td>
+      <td>{{ user.data_json_string}} </td>  
+      <td>{{ user.data_json_base64}} </td>  
+    </tr>  
+  </tbody>  
+</table>
+
+
