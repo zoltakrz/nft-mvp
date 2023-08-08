@@ -1,0 +1,15 @@
+<input type="file" (change)="onFileChange($event)" multiple="false" />
+<table class="sjs-table">
+    <tbody>
+      <tr *ngFor="let user of nft_users">
+        <td>{{ user.email }} </td>
+        <td>{{ user.hashedEmail }} </td>
+        <td>{{ user.firstName }} </td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.certType}} </td>
+        <td>{{ user.certLevel}} </td>
+        <td>{{ user.data_json_string}} </td>
+        <td>{{ user.data_json_base64}} </td>
+      </tr>
+    </tbody>
+</table>
