@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
 
-import * as XLSX from 'xlsx';
 import { ethers } from "ethers";
 
 export class NFTUser {
@@ -25,7 +24,14 @@ export class NFTUser {
         this.hashedEmail = ethers.id(email);
       }
 
-      setFirstAndLastName(email:string){
+      setFirstName(fName:string){
+        this.firstName = fName;
+      };
+      setLastName(lName:string){
+        this.lastName = lName;
+      };
+
+      setFirstAndLastNameFromEmail(email:string){
         let name_and_last_name = (email.split('@')[0]).split('.');
         let names_count = name_and_last_name.length;
 
@@ -61,6 +67,7 @@ export class NFTUser {
       }
 
       setDataJsonBase64ForNFTUser() {
-        this.data_json_base64 = 'data:application/json;base64,' + btoa(this.data_json_string);
+        this.data_json_base64 = 'data:application/json;base64,' +   ethers.encodeBase64(ethers.toUtf8Bytes(this.data_json_string));
+
       }
   }

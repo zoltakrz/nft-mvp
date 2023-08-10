@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 
 import {NFTUser} from "./NFTUser";
-import {Architect} from "./Architect";
-import {NFTUserService} from "./NFTUserService"
+import {NFTUserService} from "./NFTUserService";
 
 import * as XLSX from 'xlsx';
 
@@ -13,7 +12,7 @@ import * as XLSX from 'xlsx';
 
 export class TableJSComponent {
 
-   architects: Architect[] = [];
+   certTypeVal="";
    nft_users: NFTUser[]= [];
    nftUserService: NFTUserService = new NFTUserService();
 
@@ -29,17 +28,14 @@ export class TableJSComponent {
       /* grab first sheet */
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+       if(this.nft_users.length>0){
+              this.nft_users = [];
+       }
       /* save data */
-      this.architects = XLSX.utils.sheet_to_json(ws);
+      this.nft_users = this.nftUserService.getNFTUsers(XLSX.utils.sheet_to_json(ws),this.certTypeVal);
 
-      if(this.nft_users.length>0){
-        this.nft_users = [];
-      }
-      for(let arch of this.architects){
-        this.nft_users.push(this.nftUserService.getNftUserFromArchitect(arch));
-      }
     };
-
     reader.readAsBinaryString(target.files[0]);
   }
 }
