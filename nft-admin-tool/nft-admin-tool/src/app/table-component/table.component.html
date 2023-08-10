@@ -1,12 +1,10 @@
-<br>
 <div>
-  <br>
   <label for="certTypeSelect">Select certyfication type  </label>
   <select id="certTypeSelect" [(ngModel)]="certTypeVal">
     <option value="architect">architect</option>
     <option value="em">em</option>
   </select>
-  <br>
+  <br><br>
   <label for="fileUpload">Select file  </label>
   <input id="fileUpload" type="file" (change)="onFileChange($event)" multiple="false" />
 

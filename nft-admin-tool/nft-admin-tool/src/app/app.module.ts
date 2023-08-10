@@ -5,11 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableJSComponent } from './table-component/table.component';
+import { WalletloginComponent } from './walletlogin-component/walletlogin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableJSComponent,
+    WalletloginComponent,
   ],
   imports: [
     BrowserModule,

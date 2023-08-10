@@ -1,7 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { TableJSComponent } from './table-component/table.component';
+import { WalletloginComponent } from './walletlogin-component/walletlogin.component';
+
+const routes: Routes = [
+
+  {
+    path: '',
+    component: WalletloginComponent,
+  },
+  {
+    path: 'usertable',
+    component: TableJSComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
