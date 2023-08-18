@@ -50,3 +50,5 @@ build/
 
 cert-viewer-e2e-tests/target/
 cert-viewer-e2e-tests/.allure/
+/.allure/
+/target/
