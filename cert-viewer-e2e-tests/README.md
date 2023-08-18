@@ -18,7 +18,7 @@ To run tests by group:
 - `mvn clean test -Dgroups=signin`
 
 To run tests (fastest way) and display allure report after:
-- `mvn clean test -Dheadless=true -Dslowmo=0 allure:serve`
+- `mvn clean test -Dheadless=true -Dslowmo=100 allure:serve`
 
 Display report after some test run:
 - `mvn allure:serve`

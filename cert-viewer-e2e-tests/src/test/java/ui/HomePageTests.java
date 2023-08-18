@@ -46,20 +46,14 @@ public class HomePageTests extends BaseUITest {
         homePage.fillEmail(testMail)
                 .clickGetCertificatesButton()
                 .clickLinkButton()
-                .clickTransactionHashLink()
-                .clickUriCopyButton()
-                .clickUriCopyButton()
-                .clickUriCopyButton()
-                .clickUriCopyButton()
-                .clickUriCopyButton()
-                .validateCopyToClipboard();
+                .clickTransactionHashLink();
+        String uriStringValue = homePage.copyUriString();
 
         homePage.load();
         homePage.fillEmail(testMail)
                 .clickGetCertificatesButton();
 
-        String clipboardValue = homePage.validateCopyToClipboard();
-        UserData userData = decode(clipboardValue);
+        UserData userData = decode(uriStringValue);
         assertThat("#root > main > div > div > table > tbody > tr > td:nth-child(1)").hasText(userData.getFirstName());
         assertThat("#root > main > div > div > table > tbody > tr > td:nth-child(2)").hasText(userData.getLastName());
         assertThat("#root > main > div > div > table > tbody > tr > td:nth-child(3)").hasText(userData.getCertType());
