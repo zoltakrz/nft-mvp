@@ -46,5 +46,6 @@ build/
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-/.allure/
 /logs/
+/.allure/
+/target/
