@@ -1,4 +1,4 @@
-target/ 	
+.target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -46,3 +46,7 @@ build/
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+
+cert-viewer-e2e-tests/target/
+cert-viewer-e2e-tests/.allure/
