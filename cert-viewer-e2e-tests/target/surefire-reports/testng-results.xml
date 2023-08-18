@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="4" total="8" passed="4" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2023-08-18T12:55:29 CEST" name="Test Suite" finished-at="2023-08-18T12:55:51 CEST" duration-ms="21563">
+    <groups>
+      <group name="Check">
+        <method signature="HomePageTests.checkIfLabelsDisplayCorrectValues()[pri:0, instance:ui.HomePageTests@26722665]" name="checkIfLabelsDisplayCorrectValues" class="ui.HomePageTests"/>
+      </group> <!-- Check -->
+      <group name="Login">
+        <method signature="HomePageTests.shouldLogin()[pri:0, instance:ui.HomePageTests@5c82cd4f]" name="shouldLogin" class="ui.HomePageTests"/>
+        <method signature="HomePageTests.shouldLoginWithAlert()[pri:0, instance:ui.HomePageTests@5c82cd4f]" name="shouldLoginWithAlert" class="ui.HomePageTests"/>
+        <method signature="HomePageTests.shouldNotLogin()[pri:0, instance:ui.HomePageTests@5c82cd4f]" name="shouldNotLogin" class="ui.HomePageTests"/>
+      </group> <!-- Login -->
+    </groups>
+    <test started-at="2023-08-18T12:55:29 CEST" name="Sign In tests" finished-at="2023-08-18T12:55:41 CEST" duration-ms="11913">
+      <class name="ui.HomePageTests">
+        <test-method is-config="true" signature="createContextAndPage()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:30 CEST" name="createContextAndPage" description="Create context and page" finished-at="2023-08-18T12:55:30 CEST" duration-ms="652" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createContextAndPage -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:31 CEST" name="setUp" description="Prepare HomePage object and load page" finished-at="2023-08-18T12:55:35 CEST" duration-ms="4705" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldLogin()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:35 CEST" name="shouldLogin" finished-at="2023-08-18T12:55:36 CEST" duration-ms="906" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldLogin -->
+        <test-method is-config="true" signature="screenshotOnFailure(org.testng.ITestResult)[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:36 CEST" name="screenshotOnFailure" description="Take a screenshot if the test fails" finished-at="2023-08-18T12:55:36 CEST" duration-ms="20" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=shouldLogin status=SUCCESS method=HomePageTests.shouldLogin()[pri:0, instance:ui.HomePageTests@5c82cd4f] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- screenshotOnFailure -->
+        <test-method is-config="true" signature="closePageAndContext()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:36 CEST" name="closePageAndContext" description="Close page and context" finished-at="2023-08-18T12:55:36 CEST" depends-on-methods="ui.config.BaseUITest.screenshotOnFailure" duration-ms="44" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closePageAndContext -->
+        <test-method is-config="true" signature="createContextAndPage()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:36 CEST" name="createContextAndPage" description="Create context and page" finished-at="2023-08-18T12:55:37 CEST" duration-ms="507" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createContextAndPage -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:37 CEST" name="setUp" description="Prepare HomePage object and load page" finished-at="2023-08-18T12:55:38 CEST" duration-ms="1286" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldLoginWithAlert()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:38 CEST" name="shouldLoginWithAlert" finished-at="2023-08-18T12:55:39 CEST" duration-ms="554" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldLoginWithAlert -->
+        <test-method is-config="true" signature="screenshotOnFailure(org.testng.ITestResult)[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:39 CEST" name="screenshotOnFailure" description="Take a screenshot if the test fails" finished-at="2023-08-18T12:55:39 CEST" duration-ms="2" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=shouldLoginWithAlert status=SUCCESS method=HomePageTests.shouldLoginWithAlert()[pri:0, instance:ui.HomePageTests@5c82cd4f] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- screenshotOnFailure -->
+        <test-method is-config="true" signature="closePageAndContext()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:39 CEST" name="closePageAndContext" description="Close page and context" finished-at="2023-08-18T12:55:39 CEST" depends-on-methods="ui.config.BaseUITest.screenshotOnFailure" duration-ms="14" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closePageAndContext -->
+        <test-method is-config="true" signature="createContextAndPage()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:39 CEST" name="createContextAndPage" description="Create context and page" finished-at="2023-08-18T12:55:39 CEST" duration-ms="302" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createContextAndPage -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:39 CEST" name="setUp" description="Prepare HomePage object and load page" finished-at="2023-08-18T12:55:41 CEST" duration-ms="1693" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="shouldNotLogin()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:41 CEST" name="shouldNotLogin" finished-at="2023-08-18T12:55:41 CEST" duration-ms="505" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- shouldNotLogin -->
+        <test-method is-config="true" signature="screenshotOnFailure(org.testng.ITestResult)[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:41 CEST" name="screenshotOnFailure" description="Take a screenshot if the test fails" finished-at="2023-08-18T12:55:41 CEST" duration-ms="2" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=shouldNotLogin status=SUCCESS method=HomePageTests.shouldNotLogin()[pri:0, instance:ui.HomePageTests@5c82cd4f] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- screenshotOnFailure -->
+        <test-method is-config="true" signature="closePageAndContext()[pri:0, instance:ui.HomePageTests@5c82cd4f]" started-at="2023-08-18T12:55:41 CEST" name="closePageAndContext" description="Close page and context" finished-at="2023-08-18T12:55:41 CEST" depends-on-methods="ui.config.BaseUITest.screenshotOnFailure" duration-ms="17" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closePageAndContext -->
+      </class> <!-- ui.HomePageTests -->
+    </test> <!-- Sign In tests -->
+    <test started-at="2023-08-18T12:55:41 CEST" name="Checking" finished-at="2023-08-18T12:55:51 CEST" duration-ms="9566">
+      <class name="ui.HomePageTests">
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:17 CEST" name="launchBrowser" description="Launch browser" finished-at="2023-08-18T12:55:29 CEST" duration-ms="12563" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method is-config="true" signature="createContextAndPage()[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:41 CEST" name="createContextAndPage" description="Create context and page" finished-at="2023-08-18T12:55:42 CEST" duration-ms="497" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createContextAndPage -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:42 CEST" name="setUp" description="Prepare HomePage object and load page" finished-at="2023-08-18T12:55:43 CEST" duration-ms="1483" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="checkIfLabelsDisplayCorrectValues()[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:43 CEST" name="checkIfLabelsDisplayCorrectValues" finished-at="2023-08-18T12:55:51 CEST" duration-ms="7545" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- checkIfLabelsDisplayCorrectValues -->
+        <test-method is-config="true" signature="screenshotOnFailure(org.testng.ITestResult)[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:51 CEST" name="screenshotOnFailure" description="Take a screenshot if the test fails" finished-at="2023-08-18T12:55:51 CEST" duration-ms="1" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=checkIfLabelsDisplayCorrectValues status=SUCCESS method=HomePageTests.checkIfLabelsDisplayCorrectValues()[pri:0, instance:ui.HomePageTests@26722665] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- screenshotOnFailure -->
+        <test-method is-config="true" signature="closePageAndContext()[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:51 CEST" name="closePageAndContext" description="Close page and context" finished-at="2023-08-18T12:55:51 CEST" depends-on-methods="ui.config.BaseUITest.screenshotOnFailure" duration-ms="12" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closePageAndContext -->
+        <test-method is-config="true" signature="closeBrowser()[pri:0, instance:ui.HomePageTests@26722665]" started-at="2023-08-18T12:55:51 CEST" name="closeBrowser" finished-at="2023-08-18T12:55:51 CEST" duration-ms="99" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- closeBrowser -->
+      </class> <!-- ui.HomePageTests -->
+    </test> <!-- Checking -->
+  </suite> <!-- Test Suite -->
+</testng-results>
