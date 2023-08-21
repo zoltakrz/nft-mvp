@@ -11,8 +11,8 @@ public class Base64Decoder {
 
 
         String firstName = json.getString("firstName");
-        String lastName = json.getString("lastName");
-        String certType = json.getString("certType");
+        String lastName  = json.getString("lastName");
+        String certType  = json.getString("certType");
         String certLevel = json.getString("certLevel");
 
         String[] variables = {firstName, lastName, certType, certLevel};
@@ -25,8 +25,8 @@ public class Base64Decoder {
         }
 
         firstName = variables[0];
-        lastName = variables[1];
-        certType = variables[2];
+        lastName  = variables[1];
+        certType  = variables[2];
         certLevel = variables[3];
 
         UserData userData = new UserData("", "", "", "");
