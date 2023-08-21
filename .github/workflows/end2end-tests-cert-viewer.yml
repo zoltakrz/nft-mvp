@@ -1,4 +1,4 @@
-name: Run e2e cert-viewer tests
+name: end2end-tests-cert-viewer
  
 on:
   push:
