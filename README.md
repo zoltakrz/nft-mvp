@@ -2,6 +2,10 @@
 Repository for nft related project containing 2 projects
 
 # cert-viewer-app
+<a href="https://github.com/zoltakrz/nft-mvp/actions">
+<img alt="Cert Viewer End2End Tests Status" src="https://github.com/zoltakrz/nft-mvp/workflows/end2end-tests-cert-viewer/badge.svg"/>
+</a>
+
 Application for viewing certificates from blockchain, to access use:
 
 ```sh

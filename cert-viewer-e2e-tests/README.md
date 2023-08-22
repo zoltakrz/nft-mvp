@@ -16,16 +16,9 @@ To change slow motion speed:
 
 To run tests by group:
 - `mvn clean test -Dgroups=signin`
-- `mvn clean test -Dgroups=signup`
-- `mvn clean test -Dgroups=forgot`
-- `mvn clean test -Dgroups=note`
-- `mvn clean test -Dgroups=task`
-- `mvn clean test -Dgroups=areaoffocus`
-- `mvn clean test -Dgroups=my_account`
-- `mvn clean test -Dgroups=not_logged`
 
 To run tests (fastest way) and display allure report after:
-- `mvn clean test -Dheadless=true -Dslowmo=0 allure:serve`
+- `mvn clean test -Dheadless=true -Dslowmo=100 allure:serve`
 
 Display report after some test run:
 - `mvn allure:serve`

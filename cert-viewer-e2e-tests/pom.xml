@@ -57,6 +57,7 @@
             <artifactId>surefire-testng</artifactId>
             <version>3.0.0</version>
           </dependency>
+
         </dependencies>
       </plugin>
     </plugins>
@@ -158,6 +159,12 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.capgemini.mrchecker</groupId>
+      <artifactId>mrchecker-playwright-module</artifactId>
+      <version>2023.04.04</version>
+    </dependency>
+
 
 
   </dependencies>
