@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
 import { TitleCasePipe } from '@angular/common';
-
 import { ethers } from "ethers";
 
 export class NFTUser {
@@ -38,7 +36,7 @@ export class NFTUser {
         let titlecasePipe = new TitleCasePipe();
 
         this.firstName = titlecasePipe.transform(name_and_last_name[0].replace('-',' '));
-        this.lastName = titlecasePipe.transform(name_and_last_name[names_count-1]);
+        this.lastName = titlecasePipe.transform(name_and_last_name[names_count-1].replace('-',' '));
       }
 
 

@@ -46,6 +46,10 @@ export class WalletloginComponent implements OnInit {
   connected() {
     this.isConnected = true;
   }
+  disconnected() {
+    this.isConnected = false;
+  }
+
 
   async connectMetamask() {
     const accounts = await (window as any).ethereum.request({
@@ -56,4 +60,10 @@ export class WalletloginComponent implements OnInit {
     this.storeMetamask();
     this.connected();
   }
+
+  disconnectMetaMask() {
+    localStorage.setItem(this.METAMASK_KEY,'');
+    this.disconnected();
+  }
+
 }

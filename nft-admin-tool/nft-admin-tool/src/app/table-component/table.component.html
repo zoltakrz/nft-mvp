@@ -7,14 +7,17 @@
   <br><br>
   <label for="fileUpload">Select file  </label>
   <input id="fileUpload" type="file" (change)="onFileChange($event)" multiple="false" />
-
-
 </div>
-
 <br><br>
+<!--<p>You are connected with the adress {{contractAdress}}</p>-->
+<br>
+<!--<br><br>-->
 <table class="sjs-table">
     <tbody>
       <tr *ngFor="let user of nft_users">
+        <td>
+          <div><button (click)="userSafeMint(user.hashedEmail,user.data_json_base64 )"> Safe Mint </button></div>
+        </td>
         <td>{{ user.email }} </td>
         <td>{{ user.hashedEmail }} </td>
         <td>{{ user.firstName }} </td>

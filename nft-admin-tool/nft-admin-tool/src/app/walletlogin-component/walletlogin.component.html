@@ -11,9 +11,13 @@
   class="btn btn-black"
   (click)="connectMetamask()"
 >
-  Connect using Metamask
+  You need to be connected using Metamask
 </button>
-<ng-container *ngIf="isConnected">
+<div *ngIf="isIdentified && isConnected">
   <p>You are connected with the adress {{getMetamaskAdress()}}</p>
+  <button class="btn btn-black" (click)="disconnectMetaMask()">Disconnect</button>
+</div>
+<ng-container *ngIf="isConnected">
+  <br>
   <a class="btn btn-black btn-link" routerLink="/usertable"> Now You can load data </a>
 </ng-container>

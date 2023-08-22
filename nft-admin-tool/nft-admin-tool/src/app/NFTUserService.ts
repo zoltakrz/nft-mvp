@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {NFTUser} from "./NFTUser";
-import {Architect} from "./Architect";
-import {EM} from "./EM";
+import {NFTUser} from "./user-model/NFTUser";
+import {Architect} from "./user-model/Architect";
+import {EM} from "./user-model/EM";
 
 export class NFTUserService {
 
