@@ -17,6 +17,7 @@ export class TableJSComponent {
    certTypeVal="";
    nft_users: NFTUser[]= [];
    nftUserService: NFTUserService = new NFTUserService();
+   fileContent: any;
 
   constructor(
     private http: HttpClient) { }
@@ -25,6 +26,13 @@ export class TableJSComponent {
     /* wire up file reader */
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    this.fileContent = target.files[0];
+  }
+
+  load() {
+    if(!this.fileContent) {
+      throw new Error('No file is chosen');
+    }
     const reader: FileReader = new FileReader();
     reader.onload = (e: any) => {
       /* read workbook */
@@ -33,17 +41,25 @@ export class TableJSComponent {
       /* grab first sheet */
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+      const opt: XLSX.Sheet2JSONOpts = { range: 1}
 
-       if(this.nft_users.length>0){
+       if(this.nft_users?.length > 0){
               this.nft_users = [];
        }
 
        console.log(this.nft_users);
       /* save data */
-      this.nft_users = this.nftUserService.getNFTUsers(XLSX.utils.sheet_to_json(ws),this.certTypeVal);
+      let json;
+      if(this.certTypeVal == 'em') {
+        json = XLSX.utils.sheet_to_json(ws , {blankrows: false})
+      }
+      else {
+        json = XLSX.utils.sheet_to_json(ws, opt)
+      }
+      this.nft_users = this.nftUserService.getNFTUsers(json,this.certTypeVal);
 
     };
-    reader.readAsBinaryString(target.files[0]);
+    reader.readAsBinaryString(this.fileContent);
   }
 
   userSafeMint(hashedEmail	: string, data_json_base64 : string){

@@ -19,7 +19,9 @@ export class NFTUser {
       }
 
       setHashedEmail(email:string){
-        this.hashedEmail = ethers.id(email);
+        if(email) {
+          this.hashedEmail = ethers.id(email);
+        }
       }
 
       setFirstName(fName:string){
@@ -30,6 +32,9 @@ export class NFTUser {
       };
 
       setFirstAndLastNameFromEmail(email:string){
+        if(!email) {
+          return;
+        }
         let name_and_last_name = (email.split('@')[0]).split('.');
         let names_count = name_and_last_name.length;
 
