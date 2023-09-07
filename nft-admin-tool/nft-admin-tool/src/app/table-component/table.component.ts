@@ -50,7 +50,7 @@ export class TableJSComponent {
        console.log(this.nft_users);
       /* save data */
       let json;
-      if(this.certTypeVal == 'em') {
+      if(this.certTypeVal == 'engagement management') {
         json = XLSX.utils.sheet_to_json(ws , {blankrows: false})
       }
       else {

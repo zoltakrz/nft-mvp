@@ -17,7 +17,7 @@ export class NFTUserService {
                 nftusers.push(this.getNftUserFromArch(arch,certType));
               }
              }
-             else if (certType == "em"){
+             else if (certType == "engagement management"){
              let ems : EM[] = json;
               for(let em of ems){
                 nftusers.push(this.getNftUserFromEM(em,certType));
