@@ -26,9 +26,11 @@
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
     "crypto-js": "^4.1.1",
+    "ethers": "^6.7.1",
     "jquery": "^3.7.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
