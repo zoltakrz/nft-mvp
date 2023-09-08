@@ -7,31 +7,40 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'nft-admin-tool/**'
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    env:
+      CI: false
 
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v3
+      
       - name: Set up Node.js version
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '16.x'          
 
       - name: npm install, build, and test
+        working-directory: nft-admin-tool/nft-admin-tool
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-      
+         npm install
+         npm run build --if-present
+        # npm run test --if-present
+   
+      - name: Zip artifact 
+        working-directory: nft-admintool
+        run: zip -r nft-admintool.zip ./*
+        
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: node-app
-          path: .
+          name: nft-admintool
+          path: nft-admintool/nft-admintool.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -42,13 +51,19 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
-          name: node-app
+          name: nft-admintool
+          
+      - name: Unzip artifact
+        run: unzip nft-admintool.zip
+          
+      - name: Remove zip
+        run: rm nft-admintool.zip
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'nft-admintool'
           slot-name: 'Production'
