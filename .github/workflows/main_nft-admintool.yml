@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: nft-admintool
-          path: nft-admintool/nft-admintool.zip
+          path: nft-admin-tool/nft-admintool.zip
 
   deploy:
     runs-on: ubuntu-latest
