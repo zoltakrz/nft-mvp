@@ -33,7 +33,7 @@ jobs:
         # npm run test --if-present
    
       - name: Zip artifact 
-        working-directory: nft-admintool
+        working-directory: nft-admin-tool
         run: zip -r nft-admintool.zip ./*
         
       - name: Upload artifact for deployment job
