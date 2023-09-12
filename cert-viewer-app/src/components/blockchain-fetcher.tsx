@@ -45,7 +45,7 @@ async function getResult(hashedEmail: string) {
         const tokenURIFuntion = daiToken.methods.tokenURI(id)
         var certEncodedWithPrefix: string = await tokenURIFuntion.call()
         var certEncoded: string = certEncodedWithPrefix.replace('data:application/json;base64,', '')
-        var cert: string = atob(certEncoded)
+        var cert: string = b64DecodeUnicode(certEncoded)
         let certificateContract: CertificateContract = JSON.parse(cert);
         certificateContract.tokenId = id
         return certificateContract
@@ -54,6 +54,11 @@ async function getResult(hashedEmail: string) {
     return certificates
 }
 
+function b64DecodeUnicode(str: string) {
+      return decodeURIComponent(atob(str).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+}
 
 export async function getCertificates(email: string) {
     let hashedEmail = keccak256(toUtf8Bytes(email))
