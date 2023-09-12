@@ -67,7 +67,7 @@ export async function getCertificates(email: string) {
             certType: certificateContract.certType,
             certGrade: certificateContract.certLevel,
             mintURL: mintedTokenURLPrefix + certificateContract.tokenId,
-            certLogoURL: "/" + certificateContract.certLevel + certificateContract.certType + ".svg"
+            certLogoURL: "/" + certificateContract.certLevel + "_" + certificateContract.certType.replace(" ", "_") + ".svg"
         };
 
         return certificate
