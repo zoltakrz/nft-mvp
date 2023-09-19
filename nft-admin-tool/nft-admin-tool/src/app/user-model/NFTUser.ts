@@ -15,12 +15,12 @@ export class NFTUser {
       constructor() {};
 
       setEmail(email:string){
-        this.email = email;
+        this.email = email.toLowerCase();
       }
 
       setHashedEmail(email:string){
         if(email) {
-          this.hashedEmail = ethers.id(email);
+          this.hashedEmail = ethers.id(email.toLowerCase());
         }
       }
 
