@@ -1,45 +1,46 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - certviewer 
+name: Build and deploy nftadmintool
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'cert-viewer-app/**'
+      - 'nft-admin-tool/**'
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       CI: false
+
     steps:
       - uses: actions/checkout@v3
       
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '16.x'          
 
       - name: npm install, build, and test
-        working-directory: cert-viewer-app
+        working-directory: nft-admin-tool/nft-admin-tool
         run: |
          npm install
          npm run build --if-present
         # npm run test --if-present
    
       - name: Zip artifact 
-        working-directory: cert-viewer-app
-        run: zip -r cert-viewer-app.zip ./*
+        working-directory: nft-admin-tool
+        run: zip -r nftadmintool.zip ./*
         
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: cert-viewer-app
-          path: cert-viewer-app/cert-viewer-app.zip
+          name: nftadmintool
+          path: nft-admin-tool/nftadmintool.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,19 +53,19 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: cert-viewer-app
+          name: nftadmintool
           
       - name: Unzip artifact
-        run: unzip cert-viewer-app.zip
+        run: unzip nftadmintool.zip
           
       - name: Remove zip
-        run: rm cert-viewer-app.zip
+        run: rm nftadmintool.zip
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
-          app-name: 'certviewer'
+          app-name: 'nftadmintool'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9EC4FA9D5D5F4B78B653D77B7941DC62 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6BA414075DA54E3EACE4C5D469E391BA }}
           package: .

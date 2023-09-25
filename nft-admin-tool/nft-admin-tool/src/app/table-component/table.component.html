@@ -1,18 +1,18 @@
-<div>
-  <label for="certTypeSelect">Select certyfication type  </label>
-  <select id="certTypeSelect" [(ngModel)]="certTypeVal">
-    <option value="architect">architect</option>
-    <option value="em">em</option>
-  </select>
+<div class="p-5  bg-light mb-3">
+  <div class="form-floating">
+    <select id="certTypeSelect" [(ngModel)]="certTypeVal" [required]="true" class="form-select">
+      <option value="architect">architect</option>
+      <option value="engagement management">engagement management</option>
+    </select>
+    <label class="fw-bolder fs-6" for="certTypeSelect">Select certyfiaction type</label>
+  </div>
   <br><br>
-  <label for="fileUpload">Select file  </label>
-  <input id="fileUpload" type="file" (change)="onFileChange($event)" multiple="false" />
+  <div class="input-group mb-3">
+    <button class="btn btn-outline-secondary fw-bolder fs-6" type="button" id="inputGroupFileAddon03" (click)="load()"  >Load</button>
+    <input  (change)="onFileChange($event)" type="file" class="form-control fw-bolder fs-6 " id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+  </div>
 </div>
-<br><br>
-<!--<p>You are connected with the adress {{contractAdress}}</p>-->
-<br>
-<!--<br><br>-->
-<table class="sjs-table">
+<table class="table table-striped">
     <tbody>
       <tr *ngFor="let user of nft_users">
         <td>

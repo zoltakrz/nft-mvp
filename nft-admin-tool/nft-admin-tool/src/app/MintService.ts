@@ -14,6 +14,7 @@ export class MintService {
       ]
     }
   ]
+  static METAMASK_KEY: string = 'metamask';
 
   static async safemint(certificant: string, url: string) {
 
@@ -21,7 +22,7 @@ export class MintService {
     let signer = await provider.getSigner();
 
     const contract = new ethers.Contract("0x70C0B60E84BDeeC72E855325521d7D51F105239f", this.contractABI, signer);
-    let nftOwner = '0xeDE8a68363Eda3390D9fE18B6a60b59Cea89313d';
+    let nftOwner = String(localStorage.getItem(this.METAMASK_KEY));
 
     try {
       const transaction = await contract['safeMint'](nftOwner,certificant,url);

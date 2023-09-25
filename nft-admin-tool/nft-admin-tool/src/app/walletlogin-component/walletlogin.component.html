@@ -1,23 +1,23 @@
-<a
-  *ngIf="!isIdentified"
-  href="https://metamask.io"
-  class="btn btn-black btn-link"
-  target="_blank"
->
-  Please install metamask wallet to use this app
-</a>
-<button
-  *ngIf="isIdentified && !isConnected"
-  class="btn btn-black"
-  (click)="connectMetamask()"
->
-  You need to be connected using Metamask
-</button>
-<div *ngIf="isIdentified && isConnected">
-  <p>You are connected with the adress {{getMetamaskAdress()}}</p>
-  <button class="btn btn-black" (click)="disconnectMetaMask()">Disconnect</button>
+<div *ngIf="!isIdentified" class="p-5 text-center bg-light" style="margin-top: 15px;">
+  <a
+       href="https://metamask.io"
+       target="_blank"
+       class="btn btn-primary"  role="button">  Please install metamask wallet to use this app</a>
 </div>
-<ng-container *ngIf="isConnected">
-  <br>
-  <a class="btn btn-black btn-link" routerLink="/usertable"> Now You can load data </a>
-</ng-container>
+
+<div  *ngIf="isIdentified && !isConnected" class="p-5 text-center bg-light" style="margin-top: 15px;">
+  <a
+    class="btn btn-primary"
+    (click)="connectMetamask()"
+    class="btn btn-primary"  role="button">  You need to be connected using Metamask </a>
+</div>
+
+<div  *ngIf="isIdentified && isConnected" class="p-5 text-center bg-light" style="margin-top: 15px;">
+  <p class="fw-normal fs-5">You are connected with the adress {{getMetamaskAdress()}}</p>
+  <ng-container *ngIf="isConnected">
+    <br>
+    <a class="btn btn-primary" routerLink="/usertable"> Load data </a>
+  </ng-container>
+</div>
+
+

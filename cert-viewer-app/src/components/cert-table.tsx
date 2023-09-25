@@ -82,7 +82,7 @@ export const CertTable = ({ email }: FormValues) => {
                   >
                     <TableCell align="left">{row.name}</TableCell>
                     <TableCell align="left">{row.surname}</TableCell>
-                    <TableCell align="left">{capitalizeFirstLetter(row.certType)}</TableCell>
+                    <TableCell align="left">{capitalizeFirstLettersOfWords(row.certType)}</TableCell>
                     <TableCell align="left">{row.certGrade}</TableCell>
                     <TableCell align="left"><a href={row.mintURL}>Link</a></TableCell>
                     <TableCell align="left"><img src={row.certLogoURL} width={300} height={'auto'}></img></TableCell>
@@ -100,6 +100,12 @@ export const CertTable = ({ email }: FormValues) => {
   );
 };
 
-function capitalizeFirstLetter(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+function capitalizeFirstLettersOfWords(str: string): string {
+  const words = str.split(" ")
+
+  for (let i = 0; i < words.length; i++) {
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1)
+  }
+
+  return words.join(" ")
 }

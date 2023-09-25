@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - '**'
+    paths:
+      - 'cert-viewer-app/**'
+      - 'cert-viewer-e2e-tests/**'
   pull_request:
     branches: [ main ]
- 
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest

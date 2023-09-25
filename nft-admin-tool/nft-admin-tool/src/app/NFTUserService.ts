@@ -17,8 +17,8 @@ export class NFTUserService {
                 nftusers.push(this.getNftUserFromArch(arch,certType));
               }
              }
-             else if (certType == "em"){
-             let ems : EM[] = json;
+             else if (certType == "engagement management"){
+              let ems : EM[] = json;
               for(let em of ems){
                 nftusers.push(this.getNftUserFromEM(em,certType));
               }
@@ -34,7 +34,7 @@ export class NFTUserService {
                nftUser.setHashedEmail(architect.Name);
                nftUser.setFirstAndLastNameFromEmail(architect.Name);
                nftUser.setCertType(certType);
-               nftUser.setCertLevel(String(architect.Certification_Level));
+               nftUser.setCertLevel(String(architect['Certification Level']));
                nftUser.setJsonStringForNFTUser();
                nftUser.setDataJsonBase64ForNFTUser();
 
@@ -47,10 +47,10 @@ export class NFTUserService {
 
                nftUser.setEmail(em.Email);
                nftUser.setHashedEmail(em.Email);
-               nftUser.setFirstName(em.First_Name);
-               nftUser.setLastName(em.Last_Name);
+               nftUser.setFirstName(em['First Name']);
+               nftUser.setLastName(em['Last Name']);
                nftUser.setCertType(certType);
-               nftUser.setCertLevel(String(em.Current_Certification_Level));
+               nftUser.setCertLevel(String(em['Current Certification Level']));
                nftUser.setJsonStringForNFTUser();
                nftUser.setDataJsonBase64ForNFTUser();
 
