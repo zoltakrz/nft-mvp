@@ -59,8 +59,8 @@ public class HomePage extends BasePage {
     }
 
     @Step("Click on link button")
-    public HomePage clickLinkButton() {
-        page.getByText("Link").click();
+    public HomePage clickLinkButton(int row) {
+        page.locator("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr["+ row +"]/td[5]/a[1]").click();
         BFLogger.logInfo("Clicking on link button");
         return this;
     }
@@ -83,6 +83,13 @@ public class HomePage extends BasePage {
             BFLogger.logInfo("Element not found");
         }
         return value;
+    }
+    @Step("Count rows in table")
+    public Integer countRows() {
+        ElementHandle table = page.waitForSelector("#root > main > div > div > table");
+        List<ElementHandle> trList = table.querySelectorAll("tr");
+        BFLogger.logInfo(String.valueOf(trList.size()));
+        return trList.size();
     }
 
 }

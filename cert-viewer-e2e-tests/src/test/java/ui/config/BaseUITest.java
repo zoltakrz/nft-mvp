@@ -16,6 +16,7 @@ import pages.config.BasePage;
 import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public abstract class BaseUITest {
 
@@ -23,6 +24,8 @@ public abstract class BaseUITest {
     private static Browser browser;
     private BrowserContext context;
     private Page page;
+
+    public Random random = new Random();
 
     @BeforeSuite(alwaysRun = true, description = "Launch browser")
     protected void launchBrowser() {
