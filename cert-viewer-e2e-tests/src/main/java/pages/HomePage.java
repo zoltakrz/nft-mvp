@@ -19,7 +19,7 @@ public class HomePage extends BasePage {
 
 
     // URL
-    private final String url = "https://certviewer-00.azurewebsites.net";
+    private final String url = "https://certviewer.azurewebsites.net";
 
 
     // SIGN UP
