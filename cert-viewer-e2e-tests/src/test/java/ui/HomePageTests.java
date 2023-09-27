@@ -45,10 +45,12 @@ public class HomePageTests extends BaseUITest {
 
     @Test(groups = "Check")
     void checkIfLabelsDisplayCorrectValues() {
-        int randomRow = random.nextInt(homePage.countRows() + 1);
         homePage.fillEmail(testMail)
-                .clickGetCertificatesButton()
-                .clickLinkButton(randomRow)
+                .clickGetCertificatesButton();
+        int randomRow = random.nextInt(homePage.countRows() + 1);
+
+
+        homePage.clickLinkButton(randomRow)
                 .clickTransactionHashLink();
         String uriStringValue = homePage.copyUriString();
 
@@ -57,9 +59,9 @@ public class HomePageTests extends BaseUITest {
                 .clickGetCertificatesButton();
 
         UserData userData = decode(uriStringValue);
-        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr[1]/td["+ randomRow+"]").hasText(userData.getFirstName());
-        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr[1]/td["+ randomRow+"]").hasText(userData.getLastName());
-        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr[1]/td["+ randomRow+"]").hasText(userData.getCertType());
-        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr[1]/td["+ randomRow+"]").hasText(userData.getCertLevel());
+        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr["+ randomRow +"]/td[1]").hasText(userData.getFirstName());
+        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr["+ randomRow +"]/td[2]").hasText(userData.getLastName());
+        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr["+ randomRow +"]/td[3]").hasText(userData.getCertType());
+        assertThat("//table[contains(@class,'MuiTable-root css-19mj8md')]/tbody[1]/tr["+ randomRow +"]/td[4]").hasText(userData.getCertLevel());
     }
 }
