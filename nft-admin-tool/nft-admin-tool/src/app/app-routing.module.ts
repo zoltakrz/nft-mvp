@@ -11,7 +11,7 @@ const routes: Routes = [
     component: WalletloginComponent,
   },
   {
-    path: 'usertable',
+    path: 'data',
     component: TableJSComponent,
   },
 ];

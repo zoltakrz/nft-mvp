@@ -1,31 +1,76 @@
-<div class="p-5  bg-light mb-3">
-  <div class="form-floating">
-    <select id="certTypeSelect" [(ngModel)]="certTypeVal" [required]="true" class="form-select">
-      <option value="architect">architect</option>
-      <option value="engagement management">engagement management</option>
-    </select>
-    <label class="fw-bolder fs-6" for="certTypeSelect">Select certyfiaction type</label>
+<div class="p-5  bg-light mb-1" style="margin-top: 15px;">
+  <p class="fw-bolder">You are logged in with METAMASK adress: {{getMetamaskAddress()}} .</p>
+
+
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="inputPassword2" class="fw-bolder fs-6">Wallet Key</label>
+      <input type="password" class="form-control"  [(ngModel)]="metamaskPrivateKey" id="inputPassword2" placeholder="Insert Key">
+    </div>
+  <div class="form-group mx-sm-3 mb-2">
+    <label class="fw-bolder fs-6">Select certyfiaction type:   </label>
+    <br>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="architect" [(ngModel)]="certTypeVal" checked/>
+      <label class="form-check-label" for="inlineRadio1">architect</label>
+    </div>
+
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="engagement management" [(ngModel)]="certTypeVal"/>
+      <label class="form-check-label" for="inlineRadio2">engagement management</label>
+    </div>
+
+    <div class="input-group mb-3" >
+      <input  (change)="onFileChange($event)" type="file" class="form-control fw-bolder fs-6 " id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
+    </div>
+
   </div>
-  <br><br>
-  <div class="input-group mb-3">
-    <button class="btn btn-outline-secondary fw-bolder fs-6" type="button" id="inputGroupFileAddon03" (click)="load()"  >Load</button>
-    <input  (change)="onFileChange($event)" type="file" class="form-control fw-bolder fs-6 " id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-  </div>
+
+    <button type="submit" class="btn btn-outline-secondary fw-bolder fs-6" (click)="submit()">Load data</button>
+
+
+
 </div>
-<table class="table table-striped">
+
+<div *ngIf = 'nftUsers.length > 0' class="p-5  bg-light mb-1" style="margin-top: 15px;">
+
+<p>{{nftUsers.length}} certificants loaded.</p>
+<button type="button" class="btn btn-secondary" (click)="safeMintForAll()">Mint NFT for all</button>
+<button type="button" class="btn btn-secondary" (click)="burnTokensForAll()">Burn NFT for all</button>
+
+<table class="table table-striped" >
+    <thead>
+      <tr>
+        <th scope="col">Safe mint</th>
+        <th scope="col">Token ids</th>
+        <th scope="col">Burn</th>
+        <th scope="col">Email</th>
+<!--        <th scope="col">Hashed Email</th>-->
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Cert Type</th>
+        <th scope="col">Cert Level</th>
+<!--        <th scope="col">JSON STRING</th>-->
+<!--        <th scope="col">JSON BASE 64</th>-->
+      </tr>
+    </thead>
     <tbody>
-      <tr *ngFor="let user of nft_users">
+      <tr *ngFor="let user of nftUsers">
         <td>
-          <div><button (click)="userSafeMint(user.hashedEmail,user.data_json_base64 )"> Safe Mint </button></div>
+          <div><button (click)="safeMintForUser(user.hashedEmail,user.data_json_base64)"> Safe Mint </button></div>
+        </td>
+        <td>{{ user.tokenIds.toString() }}</td>
+        <td>
+          <div><button (click)="burnTokensForUser(user.tokenIds)"> Burn </button></div>
         </td>
         <td>{{ user.email }} </td>
-        <td>{{ user.hashedEmail }} </td>
+<!--        <td>{{ user.hashedEmail }} </td>-->
         <td>{{ user.firstName }} </td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.certType}} </td>
         <td>{{ user.certLevel}} </td>
-        <td>{{ user.data_json_string}} </td>
-        <td>{{ user.data_json_base64}} </td>
+<!--        <td>{{ user.data_json_string}} </td>-->
+<!--        <td>{{ user.data_json_base64}} </td>-->
       </tr>
     </tbody>
 </table>
+</div>

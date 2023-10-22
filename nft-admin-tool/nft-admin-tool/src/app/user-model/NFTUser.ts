@@ -11,6 +11,8 @@ export class NFTUser {
         public certLevel	: string= "";
         public data_json_string	: string= "";
         public data_json_base64 : string= "";
+        public dataExpired: string = "";
+        public tokenIds: number[]=[];
 
       constructor() {};
 
@@ -72,5 +74,9 @@ export class NFTUser {
       setDataJsonBase64ForNFTUser() {
         this.data_json_base64 = 'data:application/json;base64,' +   ethers.encodeBase64(ethers.toUtf8Bytes(this.data_json_string));
 
+      }
+
+      setTokenIds(tokenIds:number[]){
+        this.tokenIds = tokenIds;
       }
   }
