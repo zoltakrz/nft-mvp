@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import {NFTUser} from "../user-model/NFTUser";
-import {MintService} from "../services/MintService";
-import {BurnService} from "../services/BurnService";
 import {NFTUserService} from "../services/NFTUserService";
-
 import * as XLSX from 'xlsx';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, from } from "rxjs";
+import { checkResultErrors } from 'ethers';
+import { BlockchainService } from '../services/BlockchainService';
 
 @Component({
   selector: 'app-table',
@@ -18,17 +17,12 @@ export class TableJSComponent {
    certTypeVal="";
    nftUsers: NFTUser[]= [];
    nftUserService: NFTUserService = new NFTUserService();
-   mintService: MintService = new MintService();
-   burnService: BurnService = new BurnService();
+   blockchainService: BlockchainService = new BlockchainService();
    fileContent: any;
    metamaskPrivateKey:string = "";
 
   constructor(
     private http: HttpClient) { }
-
-  submit(){
-    this.load();
-  }
 
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -36,9 +30,9 @@ export class TableJSComponent {
     this.fileContent = target.files[0];
   }
 
-  load() : void {
+  load(){
     if(!this.fileContent)
-          throw new Error('No file is chosen');
+        throw new Error('No file is chosen');
 
         const reader: FileReader = new FileReader();
         reader.onload = (e: any) => {
@@ -61,25 +55,22 @@ export class TableJSComponent {
         reader.readAsBinaryString(this.fileContent);
   }
 
-  safeMintForUser(hashedEmail	: string, data_json_base64 : string){
-      this.mintService.safemint(hashedEmail,data_json_base64,this.metamaskPrivateKey);
+  async safeMintForUser(hashedEmail	: string, data_json_base64 : string){
+      await this.blockchainService.safemint(hashedEmail,data_json_base64,this.metamaskPrivateKey);
   }
 
-  safeMintForAll(){
+  async safeMintForAll(){
     for (var nftUser of this.nftUsers){
-      this.safeMintForUser(nftUser.hashedEmail,nftUser.data_json_base64)
+      await this.safeMintForUser(nftUser.hashedEmail,nftUser.data_json_base64)
     }
   }
 
-  burnTokensForUser(tokenIds: number[]){
-    for(var id of tokenIds){
-        this.burnService.burn(id,this.metamaskPrivateKey);
-    }
+  async burnTokensForUser(hashedEmail:string){
+    await this.blockchainService.burnForUser(hashedEmail,this.metamaskPrivateKey);
   }
-  burnTokensForAll(){
-      for(var nftUser of this.nftUsers){
-          this.burnTokensForUser(nftUser.tokenIds)
-      }
+  async burnTokensForAll(){
+      for(var nftUser of this.nftUsers)
+         await this.burnTokensForUser(nftUser.hashedEmail)  
   }
 
   getMetamaskAddress(){

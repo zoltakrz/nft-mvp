@@ -12,7 +12,7 @@ export class NFTUser {
         public data_json_string	: string= "";
         public data_json_base64 : string= "";
         public dataExpired: string = "";
-        public tokenIds: number[]=[];
+        public tokenIds: number[] = [];
 
       constructor() {};
 
