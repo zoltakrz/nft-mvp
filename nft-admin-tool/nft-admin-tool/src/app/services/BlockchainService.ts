@@ -1,4 +1,5 @@
 import { Wallet, ethers } from "ethers";
+import { AlertService } from "../_alert";
 
 export class BlockchainService {
 
@@ -34,7 +35,7 @@ export class BlockchainService {
   smartContractAdress = "0x70C0B60E84BDeeC72E855325521d7D51F105239f";
 
 
-  async safemint(certificant: string, url: string, walletPrivateKey:string) {
+  async safemint(certificant: string, url: string, walletPrivateKey:string, alertService:AlertService) {
 
     try {
      let signer = (walletPrivateKey === "") ? await this.provider.getSigner() : new ethers.Wallet(walletPrivateKey, this.provider);
@@ -42,13 +43,13 @@ export class BlockchainService {
 
      const transaction = await contract['safeMint'](this.nftOwner,certificant,url);
       await transaction.wait();
-      console.log('Tokens minted successfully!');
+      alertService.success('Tokens minted successfully!',{autoClose:true });
     } catch (error) {
-      console.error('Error minting tokens:', error);
+      alertService.error('Error minting NFT ' + error, {autoClose:true })
     }
   }
   
-  async burn(tokenID : number, walletPrivateKey:string) {
+  async burn(tokenID : number, walletPrivateKey:string, alertService:AlertService) {
 
     try {
      let signer = (walletPrivateKey === "") ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
@@ -56,14 +57,14 @@ export class BlockchainService {
 
       const transaction = await contract['burn'](tokenID);
       await transaction.wait();
-      console.log('Tokens burnt successfully! ' + tokenID.toString());
+      alertService.success('Tokens burnt successfully! ' + tokenID.toString(),{autoClose:true });
 
     } catch (error) {
-      console.error('Error burning tokens:', error);
+      alertService.error('Error burning NFT ' + error,{autoClose:true })
     }
   }
 
-  async burnForUser(hashedEmail : string, walletPrivateKey:string) {
+  async burnForUser(hashedEmail : string, walletPrivateKey:string, alertService:AlertService) {
     try {
 
       let signer = (walletPrivateKey === "") ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
@@ -79,14 +80,12 @@ export class BlockchainService {
 
       for (var idNum of tokenIdsNum)
       {
-        if(idNum != 97){
         const transaction = await contract['burn'](idNum);
         await transaction.wait();
-        console.log('Token burnt successfully! ' + idNum.toString());}
-      } 
-
+        alertService.success('Tokens burnt successfully! ' + idNum.toString(),{autoClose:true });
+      }
     } catch (error) {
-      console.error('Error burning tokens:', error);
+      alertService.error('Error burning NFT ' + error,{autoClose:true })
     }
   }
 }

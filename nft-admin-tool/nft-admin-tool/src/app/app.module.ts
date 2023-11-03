@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { TableJSComponent } from './table-component/table.component';
 import { WalletloginComponent } from './walletlogin-component/walletlogin.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertModule } from './_alert';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     NgbModule,
+    AlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]

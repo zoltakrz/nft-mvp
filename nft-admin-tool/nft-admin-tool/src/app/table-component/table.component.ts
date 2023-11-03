@@ -3,8 +3,7 @@ import {NFTUser} from "../user-model/NFTUser";
 import {NFTUserService} from "../services/NFTUserService";
 import * as XLSX from 'xlsx';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, from } from "rxjs";
-import { checkResultErrors } from 'ethers';
+import { AlertService } from '../_alert';
 import { BlockchainService } from '../services/BlockchainService';
 
 @Component({
@@ -22,7 +21,8 @@ export class TableJSComponent {
    metamaskPrivateKey:string = "";
 
   constructor(
-    private http: HttpClient) { }
+    private http: HttpClient,
+    public alertService: AlertService) { }
 
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -56,7 +56,7 @@ export class TableJSComponent {
   }
 
   async safeMintForUser(hashedEmail	: string, data_json_base64 : string){
-      await this.blockchainService.safemint(hashedEmail,data_json_base64,this.metamaskPrivateKey);
+      await this.blockchainService.safemint(hashedEmail,data_json_base64,this.metamaskPrivateKey, this.alertService);
   }
 
   async safeMintForAll(){
@@ -66,7 +66,7 @@ export class TableJSComponent {
   }
 
   async burnTokensForUser(hashedEmail:string){
-    await this.blockchainService.burnForUser(hashedEmail,this.metamaskPrivateKey);
+    await this.blockchainService.burnForUser(hashedEmail,this.metamaskPrivateKey,this.alertService);
   }
   async burnTokensForAll(){
       for(var nftUser of this.nftUsers)
