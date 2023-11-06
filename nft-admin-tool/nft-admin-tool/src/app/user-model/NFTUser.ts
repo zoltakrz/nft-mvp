@@ -17,13 +17,13 @@ export class NFTUser {
       constructor() {};
 
       setEmail(email:string){
-        this.email = email.toLowerCase();
+        this.email = email ? email.toLowerCase():'';
+
       }
 
       setHashedEmail(email:string){
-        if(email) {
+        if(email) 
           this.hashedEmail = ethers.id(email.toLowerCase());
-        }
       }
 
       setFirstName(fName:string){
