@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping(value = "/v1", produces = "application/json;charset=UTF-8")
 @AllArgsConstructor
 public class NFTCertificateRestAdapter {
 
