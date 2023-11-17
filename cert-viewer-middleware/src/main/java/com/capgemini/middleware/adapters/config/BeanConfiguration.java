@@ -1,4 +1,4 @@
-package com.capgemini.middleware.infrastructure.adapters.config;
+package com.capgemini.middleware.adapters.config;
 
 import com.capgemini.middleware.domain.blockchain.BlockchainConnector;
 import com.capgemini.middleware.domain.service.NFTCertificateService;

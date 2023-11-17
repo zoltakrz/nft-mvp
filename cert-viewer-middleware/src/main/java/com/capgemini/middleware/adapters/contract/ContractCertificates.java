@@ -1,4 +1,4 @@
-package com.capgemini.middleware.infrastructure.contract;
+package com.capgemini.middleware.adapters.contract;
 
 import com.capgemini.middleware.domain.model.NFTCertificateDTO;
 import lombok.Getter;

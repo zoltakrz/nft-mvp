@@ -11,7 +11,7 @@ public record RawNFTCertificate(
     public NFTCertificateDTO toNFTCertificateDTO(BigInteger index) {
         final CertType certType = mapToCertType(certType());
         final CertLevel certLevel = mapToCertLevel(certLevel());
-        return new NFTCertificateDTO(firstName, lastName, certType, certLevel, index);
+        return new NFTCertificateDTO(firstName, lastName, certType, certLevel, index, hashedEmail);
     }
 
     private CertLevel mapToCertLevel(String input) {
@@ -32,7 +32,7 @@ public record RawNFTCertificate(
     private CertType mapToCertType(String input) {
         return switch (input.toLowerCase()) {
             case "architect" -> CertType.ARCHITECT;
-            case "engagement manager" -> CertType.ENGAGEMENT_MANAGER;
+            case "engagement manager", "engagementmanager" -> CertType.ENGAGEMENT_MANAGER;
             default -> CertType.NOT_SUPPORTED;
         };
     }

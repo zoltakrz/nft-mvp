@@ -1,7 +1,6 @@
-package com.capgemini.middleware.ports.input;
+package com.capgemini.middleware.ports;
 
 import com.capgemini.middleware.domain.model.NFTCertificateDTO;
-import com.capgemini.middleware.domain.model.RawNFTCertificate;
 
 import java.util.Collection;
 
