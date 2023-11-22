@@ -48,7 +48,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'cert-viewer-middleware'
+          app-name: 'certviewer-middleware'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0D71354DF1694398A4F31137217BDA30 }}
           package: '*.jar'
