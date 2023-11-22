@@ -12,8 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      CI: false
 
     steps:
       - uses: actions/checkout@v3
@@ -30,8 +28,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: cert-viewer-middleware
-          path: '${{ github.workspace }}/target/*.jar'
+          name: java-app
+          path: '${{ github.workspace }}/cert-viewer-middleware/target/*.jar'
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,7 +42,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: cert-viewer-middleware
+          name: java-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
