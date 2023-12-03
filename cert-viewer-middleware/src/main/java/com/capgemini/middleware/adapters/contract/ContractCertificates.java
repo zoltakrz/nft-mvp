@@ -9,14 +9,14 @@ import java.math.BigInteger;
 @Getter
 @ToString
 public class ContractCertificates {
-    private final BigInteger tokenIndex;
+    private final BigInteger tokenID;
     private final String firstName;
     private final String lastName;
     private final String certType;
     private final String certLevel;
 
     public ContractCertificates(NFTCertificateDTO nftCertificateDTO) {
-        this.tokenIndex = nftCertificateDTO.getTokenIndex();
+        this.tokenID = nftCertificateDTO.getTokenID();
         this.firstName = nftCertificateDTO.getFirstName();
         this.lastName = nftCertificateDTO.getLastName();
         this.certType = nftCertificateDTO.getCertType().getValue();

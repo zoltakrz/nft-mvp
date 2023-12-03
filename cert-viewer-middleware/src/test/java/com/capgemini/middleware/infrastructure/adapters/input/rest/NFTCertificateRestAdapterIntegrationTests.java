@@ -22,14 +22,14 @@ class NFTCertificateRestAdapterIntegrationTests {
     private MockMvc mvc;
 
     List<Map<String,Object>> allData = ExpectedTestData.getAllData();
-    Map<String,Object> token291 = ExpectedTestData.getData("token291");
-    Map<String,Object> token292 = ExpectedTestData.getData("token292");
+    Map<String,Object> token299 = ExpectedTestData.getData("token299");
+    Map<String,Object> token300 = ExpectedTestData.getData("token300");
 
 
     @Test
     void getCertificatesForEmail() throws Exception {
         String email = "joe.fortestingmiddleman@capgemini.com";
-        String tokenIndex = "tokenIndex";
+        String tokenID = "tokenID";
         String firstName = "firstName";
         String lastName = "lastName";
         String certType = "certType";
@@ -37,18 +37,18 @@ class NFTCertificateRestAdapterIntegrationTests {
         mvc.perform(get("/v1/certificates/{email}", email))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.valueOf("application/json;charset=UTF-8")))
-                .andExpect(jsonPath("$", hasSize(allData.size())))
+                .andExpect(jsonPath("certificates", hasSize(allData.size())))
 
-                .andExpect(jsonPath("$[0]." + tokenIndex,is(token291.get(tokenIndex))))
-                .andExpect(jsonPath("$[0]." + firstName,is(token291.get(firstName))))
-                .andExpect(jsonPath("$[0]." + lastName,is(token291.get(lastName))))
-                .andExpect(jsonPath("$[0]." + certType,is(token291.get(certType))))
-                .andExpect(jsonPath("$[0]." + certLevel,is(token291.get(certLevel))))
+                .andExpect(jsonPath("certificates[0]." + tokenID,is(token299.get(tokenID))))
+                .andExpect(jsonPath("certificates[0]." + firstName,is(token299.get(firstName))))
+                .andExpect(jsonPath("certificates[0]." + lastName,is(token299.get(lastName))))
+                .andExpect(jsonPath("certificates[0]." + certType,is(token299.get(certType))))
+                .andExpect(jsonPath("certificates[0]." + certLevel,is(token299.get(certLevel))))
 
-                .andExpect(jsonPath("$[1]." + tokenIndex,is(token292.get(tokenIndex))))
-                .andExpect(jsonPath("$[1]." + firstName,is(token292.get(firstName))))
-                .andExpect(jsonPath("$[1]." + lastName,is(token292.get(lastName))))
-                .andExpect(jsonPath("$[1]." + certType,is(token292.get(certType))))
-                .andExpect(jsonPath("$[1]." + certLevel,is(token292.get(certLevel))));
+                .andExpect(jsonPath("certificates[1]." + tokenID,is(token300.get(tokenID))))
+                .andExpect(jsonPath("certificates[1]." + firstName,is(token300.get(firstName))))
+                .andExpect(jsonPath("certificates[1]." + lastName,is(token300.get(lastName))))
+                .andExpect(jsonPath("certificates[1]." + certType,is(token300.get(certType))))
+                .andExpect(jsonPath("certificates[1]." + certLevel,is(token300.get(certLevel))));
     }
 }

@@ -12,7 +12,7 @@ import java.math.BigInteger;
 @EqualsAndHashCode
 @ToString
 public class NFTCertificateDTO {
-    private final BigInteger tokenIndex;
+    private final BigInteger tokenID;
     private final String firstName;
     private final String lastName;
     private final String hashedEmail;
@@ -21,12 +21,12 @@ public class NFTCertificateDTO {
     @NonNull
     private final CertLevel certLevel;
 
-    protected NFTCertificateDTO(String firstName, String lastName, @NotNull CertType certType, @NotNull CertLevel certLevel, BigInteger index, String hashedEmail) {
+    protected NFTCertificateDTO(String firstName, String lastName, @NotNull CertType certType, @NotNull CertLevel certLevel, BigInteger tokenID, String hashedEmail) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.certType = certType;
         this.certLevel = certLevel;
-        this.tokenIndex = index;
+        this.tokenID = tokenID;
         this.hashedEmail = hashedEmail;
     }
 }

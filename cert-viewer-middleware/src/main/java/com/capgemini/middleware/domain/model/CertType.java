@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public enum CertType {
     ARCHITECT("Architect"),
-    ENGAGEMENT_MANAGER("Engagement Manager"),
+    ENGAGEMENT_MANAGEMENT("Engagement Management"),
     NOT_SUPPORTED("Certificate type not supported");
 
     private final String value;

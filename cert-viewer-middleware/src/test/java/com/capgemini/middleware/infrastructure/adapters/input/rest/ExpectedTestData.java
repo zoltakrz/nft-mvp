@@ -13,21 +13,21 @@ public class ExpectedTestData {
         if (expectedDataMap == null) {
             expectedDataMap = new HashMap<>();
 
-            Map<String, Object> token291 = new HashMap<>();
-            token291.put("tokenIndex", 291);
-            token291.put("firstName", "Joe");
-            token291.put("lastName", "Fortestingmiddleman");
-            token291.put("certType", "Architect");
-            token291.put("certLevel", "1");
-            expectedDataMap.put("token291", token291);
+            Map<String, Object> token299 = new HashMap<>();
+            token299.put("tokenID", 299);
+            token299.put("firstName", "Joe");
+            token299.put("lastName", "Fortestingmiddleman");
+            token299.put("certType", "Architect");
+            token299.put("certLevel", "1");
+            expectedDataMap.put("token299", token299);
 
-            Map<String, Object> token292 = new HashMap<>();
-            token292.put("tokenIndex", 292);
-            token292.put("firstName", "Joe");
-            token292.put("lastName", "Fortestingmiddleman");
-            token292.put("certType", "Architect");
-            token292.put("certLevel", "0");
-            expectedDataMap.put("token292", token292);
+            Map<String, Object> token300 = new HashMap<>();
+            token300.put("tokenID", 300);
+            token300.put("firstName", "Joe");
+            token300.put("lastName", "Fortestingmiddleman");
+            token300.put("certType", "Architect");
+            token300.put("certLevel", "0");
+            expectedDataMap.put("token300", token300);
         }
     }
 

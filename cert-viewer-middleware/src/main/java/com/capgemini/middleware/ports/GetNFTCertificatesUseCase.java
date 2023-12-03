@@ -1,9 +1,10 @@
 package com.capgemini.middleware.ports;
 
-import com.capgemini.middleware.domain.model.NFTCertificateDTO;
-
-import java.util.Collection;
+import com.capgemini.middleware.domain.blockchain.CertificateSnapshot;
 
 public interface GetNFTCertificatesUseCase {
-    Collection<NFTCertificateDTO> getNFTCertificatesForEmail(String hashedEmail);
+    CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail);
+    CertificateSnapshot getNFTCertificatesForAddressOfOwner(String addressOfOwner);
+    CertificateSnapshot getAllNFTCertificates();
+
 }

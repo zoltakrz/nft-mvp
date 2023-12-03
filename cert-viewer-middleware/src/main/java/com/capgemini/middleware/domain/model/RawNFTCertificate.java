@@ -8,10 +8,15 @@ public record RawNFTCertificate(
         String lastName,
         String certType,
         String certLevel) {
-    public NFTCertificateDTO toNFTCertificateDTO(BigInteger index) {
+    public NFTCertificateDTO toNFTCertificateDTO(BigInteger tokenID) {
         final CertType certType = mapToCertType(certType());
         final CertLevel certLevel = mapToCertLevel(certLevel());
-        return new NFTCertificateDTO(firstName, lastName, certType, certLevel, index, hashedEmail);
+        return new NFTCertificateDTO(removeWhiteSpaces(firstName), removeWhiteSpaces(lastName), certType, certLevel, tokenID, hashedEmail);
+    }
+
+    private String removeWhiteSpaces(String s) {
+        return s.replace("\t", "")
+                .replace("\n", "");
     }
 
     private CertLevel mapToCertLevel(String input) {
@@ -32,7 +37,7 @@ public record RawNFTCertificate(
     private CertType mapToCertType(String input) {
         return switch (input.toLowerCase()) {
             case "architect" -> CertType.ARCHITECT;
-            case "engagement manager", "engagementmanager" -> CertType.ENGAGEMENT_MANAGER;
+            case "engagement management", "engagementmanagement" -> CertType.ENGAGEMENT_MANAGEMENT;
             default -> CertType.NOT_SUPPORTED;
         };
     }
