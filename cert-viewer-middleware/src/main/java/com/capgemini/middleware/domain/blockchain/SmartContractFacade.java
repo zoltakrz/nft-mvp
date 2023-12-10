@@ -4,6 +4,7 @@ import com.capgemini.middleware.domain.blockchain.generated.CertToken;
 import com.capgemini.middleware.domain.model.NFTCertificateDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
 
 import java.math.BigInteger;
@@ -17,10 +18,16 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Slf4j
-@AllArgsConstructor
 public class SmartContractFacade {
 
     private final BlockchainConnector blockchainConnector;
+
+    private final BlockChainCache blockChainCache;
+
+    public SmartContractFacade(BlockchainConnector blockchainConnector) {
+        this.blockchainConnector = blockchainConnector;
+        this.blockChainCache = getCache();
+    }
 
     public CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail) {
         CertToken smartContract = getSmartContract();
@@ -33,22 +40,18 @@ public class SmartContractFacade {
     }
 
     public CertificateSnapshot getAllNFTCertificates() {
-        BlockChainCache cache = getCache();
-
-        List<NFTCertificateDTO> nftCertificateDTOS = cache.entities().stream()
+        List<NFTCertificateDTO> nftCertificateDTOS = blockChainCache.entities().stream()
                 .map(NFTCertificateCacheEntity::nftCertificateDTO).toList();
 
-        return new CertificateSnapshot(nftCertificateDTOS, cache.updateTime());
+        return new CertificateSnapshot(nftCertificateDTOS, blockChainCache.updateTime());
     }
 
     public CertificateSnapshot getNFTCertificatesForAddressOfOwner(String addressOfOwner) {
-        BlockChainCache cache = getCache();
-
-        List<NFTCertificateDTO> nftCertificateDTOS = cache.entities().stream()
+        List<NFTCertificateDTO> nftCertificateDTOS = blockChainCache.entities().stream()
                 .filter(entity -> entity.ownerAddress().equals(addressOfOwner))
                 .map(NFTCertificateCacheEntity::nftCertificateDTO).toList();
 
-        return new CertificateSnapshot(nftCertificateDTOS, cache.updateTime());
+        return new CertificateSnapshot(nftCertificateDTOS, blockChainCache.updateTime());
     }
 
     private BlockChainCache getCache() {
