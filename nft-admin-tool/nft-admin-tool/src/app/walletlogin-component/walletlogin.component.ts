@@ -13,6 +13,7 @@ export class WalletloginComponent implements OnInit {
   public isConnected: boolean = false;
   public ownerAddress: string = '';
   constructor() {}
+
   ngOnInit() {
     if (this.checkIfMetamaskInstalled()) {
       this.isIdentified = true;
@@ -22,6 +23,7 @@ export class WalletloginComponent implements OnInit {
       }
     }
   }
+
   checkIfMetamaskInstalled(): boolean {
     if (typeof (window as any).ethereum !== 'undefined') {
       return true;
@@ -35,6 +37,7 @@ export class WalletloginComponent implements OnInit {
     }
     return false;
   }
+
   getMetamaskAdress(): String {
     return String(localStorage.getItem(this.METAMASK_KEY));
   }
@@ -46,10 +49,10 @@ export class WalletloginComponent implements OnInit {
   connected() {
     this.isConnected = true;
   }
+  
   disconnected() {
     this.isConnected = false;
   }
-
 
   async connectMetamask() {
     const accounts = await (window as any).ethereum.request({

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { TableJSComponent } from './table-component/table.component';
+import { CertLoader } from './certLoader/certLoader.component';
 import { WalletloginComponent } from './walletlogin-component/walletlogin.component';
 
 const routes: Routes = [
@@ -11,8 +11,8 @@ const routes: Routes = [
     component: WalletloginComponent,
   },
   {
-    path: 'data',
-    component: TableJSComponent,
+    path: 'certloader',
+    component: CertLoader,
   },
 ];
 
