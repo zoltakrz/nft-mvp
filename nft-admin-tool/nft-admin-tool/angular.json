@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "nft-admin-tool:build:production"
+              "buildTarget": "nft-admin-tool:build:production"
             },
             "development": {
-              "browserTarget": "nft-admin-tool:build:development"
+              "buildTarget": "nft-admin-tool:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nft-admin-tool:build"
+            "buildTarget": "nft-admin-tool:build"
           }
         },
         "test": {
