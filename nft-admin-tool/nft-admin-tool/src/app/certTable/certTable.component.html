@@ -1,0 +1,66 @@
+<div *ngIf = 'allCertificates' class="p-3  bg-light mb-1 border" style="margin-top: 10px;">
+
+  <p>{{allCertificates.length}} certificates loaded</p>
+
+ 
+
+      <table class="table table-striped border"  style="margin-top: 10px;">
+        <thead>
+          <tr>
+            <th scope="col">Token ID </th>
+            <th scope="col">First Name </th>
+            <th scope="col">Last Name </th>
+            <th scope="col">Cert Type </th>
+            <th scope="col">Cert Level </th>
+          </tr>
+        </thead>
+        <tbody>
+           <tr *ngFor="let cert of allCertificates">
+            <td>{{ cert.tokenID }} </td>
+            <td>{{ cert.firstName }} </td>
+            <td>{{ cert.lastName }} </td>
+            <td>{{ cert.certType }} </td>
+            <td>{{ cert.certLevel }} </td>
+           </tr>
+        </tbody>
+      </table>
+
+
+
+  <!-- <button type="button" class="btn btn-secondary mx-sm-1" (click)="safeMintForAll()">Mint NFT for all</button>
+  <button type="button" class="btn btn-secondary mx-sm-1" (click)="burnTokensForAll()">Burn NFT for all</button> -->
+  
+  
+  
+
+<!--  <table class="table table-striped"  style="margin-top: 15px;">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--          <th scope="col">Safe mint</th>-->
+<!--          <th scope="col">Burn</th>-->
+<!--          <th scope="col">Email</th>-->
+<!--          <th scope="col">Hashed Email</th>-->
+<!--          <th scope="col">First Name</th>-->
+<!--          <th scope="col">Last Name</th>-->
+<!--          <th scope="col">Cert Type</th>-->
+<!--          <th scope="col">Cert Level</th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--        <tr *ngFor="let user of nftUsers">-->
+<!--          <td>-->
+<!--            <div><button (click)="safeMintForUser(user.hashedEmail,user.data_json_base64)"> Safe Mint </button></div>-->
+<!--          </td>-->
+<!--          <td>-->
+<!--            <div><button (click)="burnTokensForUser(user.hashedEmail)"> Burn </button></div>-->
+<!--          </td>-->
+<!--          <td>{{ user.email }} </td>-->
+<!--          <td>{{ user.hashedEmail }} </td>-->
+<!--          <td>{{ user.firstName }} </td>-->
+<!--          <td>{{ user.lastName }}</td>-->
+<!--          <td>{{ user.certType}} </td>-->
+<!--          <td>{{ user.certLevel}} </td>-->
+<!--        </tr>-->
+<!--      </tbody>-->
+<!--  </table>-->
+</div>

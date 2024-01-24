@@ -1,0 +1,7 @@
+{
+    "/v1": {
+      "target": "https://certviewer-middleware.azurewebsites.net",
+      "secure": false,
+      "changeOrigin":true
+    }
+}
