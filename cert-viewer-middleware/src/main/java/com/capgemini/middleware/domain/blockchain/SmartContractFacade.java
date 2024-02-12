@@ -4,6 +4,7 @@ import com.capgemini.middleware.domain.blockchain.generated.CertToken;
 import com.capgemini.middleware.domain.model.NFTCertificateDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
 
@@ -22,11 +23,18 @@ public class SmartContractFacade {
 
     private final BlockchainConnector blockchainConnector;
 
-    private final BlockChainCache blockChainCache;
+    private BlockChainCache blockChainCache;
 
     public SmartContractFacade(BlockchainConnector blockchainConnector) {
         this.blockchainConnector = blockchainConnector;
         this.blockChainCache = getCache();
+    }
+
+    @Scheduled(cron = "* 0 * * * *") // Cron expression for running every hour
+    public void updateCache() {
+        BlockChainCache newCache = getCache();
+        log.info("Downloaded new cache with timestamp: {}", newCache.updateTime());
+        this.blockChainCache = newCache;
     }
 
     public CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail) {
