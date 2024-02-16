@@ -23,19 +23,19 @@ public class SmartContractFacade {
 
     private final BlockchainConnector blockchainConnector;
 
-    private BlockChainCache blockChainCache;
+    private final BlockChainCache blockChainCache;
 
     public SmartContractFacade(BlockchainConnector blockchainConnector) {
         this.blockchainConnector = blockchainConnector;
         this.blockChainCache = getCache();
     }
 
-    @Scheduled(cron = "* 0 * * * *") // Cron expression for running every hour
-    public void updateCache() {
-        BlockChainCache newCache = getCache();
-        log.info("Downloaded new cache with timestamp: {}", newCache.updateTime());
-        this.blockChainCache = newCache;
-    }
+//    @Scheduled(cron = "* 0 * * * *") // Cron expression for running every hour
+//    public void updateCache() {
+//        BlockChainCache newCache = getCache();
+//        log.info("Downloaded new cache with timestamp: {}", newCache.updateTime());
+//        this.blockChainCache = newCache;
+//    }
 
     public CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail) {
         CertToken smartContract = getSmartContract();
@@ -78,6 +78,7 @@ public class SmartContractFacade {
                 }).collect(Collectors.toSet());
 
         OffsetDateTime timestampInUTC = OffsetDateTime.now(ZoneOffset.UTC);
+        log.info("Blockchain database has been cached, size: {} entries", entities.size());
         return new BlockChainCache(entities, timestampInUTC + " UTC TimeZone");
     }
 

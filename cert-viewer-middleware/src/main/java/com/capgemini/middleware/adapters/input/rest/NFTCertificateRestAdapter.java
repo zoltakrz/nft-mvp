@@ -9,6 +9,7 @@ import com.capgemini.middleware.domain.model.NFTCertificateDTO;
 import com.capgemini.middleware.domain.utills.Keccak256Encoder;
 import com.capgemini.middleware.ports.GetNFTCertificatesUseCase;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/v1", produces = "application/json;charset=UTF-8")
 @AllArgsConstructor
@@ -83,6 +85,8 @@ public class NFTCertificateRestAdapter {
                 .toList();
 
         final var middlewareResponse = new MiddlewareResponse(mappedCertificates, certificateSnapshot.lastUpdateTimestamp());
+
+        log.info("Returning {} certificates", middlewareResponse.certificates().size());
         return new ResponseEntity<>(middlewareResponse, HttpStatus.OK);
     }
 
@@ -94,7 +98,7 @@ public class NFTCertificateRestAdapter {
             CertType certTypeEnum = CertType.valueOf(certType.get());
             return cert -> cert.getCertType() == certTypeEnum;
         } catch(Exception e) {
-            throw new InvalidCertTypeException(e, String.format("Value: {%s} couldn't be mapped to CertType enum", certType));
+            throw new InvalidCertTypeException(e, String.format("Value: {%s} couldn't be mapped to CertType enum", certType.get()));
         }
     }
 }
