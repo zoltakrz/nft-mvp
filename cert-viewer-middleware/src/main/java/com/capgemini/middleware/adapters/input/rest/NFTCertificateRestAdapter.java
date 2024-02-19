@@ -62,14 +62,14 @@ public class NFTCertificateRestAdapter {
     @GetMapping(value = "/certificates")
     public ResponseEntity<MiddlewareResponse> getAllCertificates(@RequestParam(required = false) String certType) {
         final Predicate<NFTCertificateDTO> filterOutNothing = cert -> true;
-        return getAllCerts(filterOutNothing, Optional.of(certType));
+        return getAllCerts(filterOutNothing, Optional.ofNullable(certType));
     }
 
     @GetMapping(value = "/certificatesWithoutTestOnes")
     public ResponseEntity<MiddlewareResponse> getAllCertificatesWithoutTestOnes(@RequestParam(required = false) String certType) {
         final Predicate<NFTCertificateDTO> filterOutTestCerts = cert ->
                 !cert.getLastName().toLowerCase().contains("fortesting");
-        return getAllCerts(filterOutTestCerts, Optional.of(certType));
+        return getAllCerts(filterOutTestCerts, Optional.ofNullable(certType));
     }
 
     @NotNull

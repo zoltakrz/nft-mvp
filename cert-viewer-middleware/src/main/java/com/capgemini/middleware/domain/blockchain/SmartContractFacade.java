@@ -23,19 +23,19 @@ public class SmartContractFacade {
 
     private final BlockchainConnector blockchainConnector;
 
-    private final BlockChainCache blockChainCache;
+    private BlockChainCache blockChainCache;
 
     public SmartContractFacade(BlockchainConnector blockchainConnector) {
         this.blockchainConnector = blockchainConnector;
         this.blockChainCache = getCache();
     }
 
-//    @Scheduled(cron = "* 0 * * * *") // Cron expression for running every hour
-//    public void updateCache() {
-//        BlockChainCache newCache = getCache();
-//        log.info("Downloaded new cache with timestamp: {}", newCache.updateTime());
-//        this.blockChainCache = newCache;
-//    }
+    @Scheduled(cron = "* 0 * * * *") // Cron expression for running every hour
+    public void updateCache() {
+        BlockChainCache newCache = getCache();
+        log.info("Downloaded new cache with timestamp: {}", newCache.updateTime());
+        this.blockChainCache = newCache;
+    }
 
     public CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail) {
         CertToken smartContract = getSmartContract();
