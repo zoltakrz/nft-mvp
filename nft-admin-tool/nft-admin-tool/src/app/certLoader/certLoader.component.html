@@ -1,72 +1,41 @@
 <div class="p-4  bg-light mb-1 border" style="margin-top: 10px;">
-  <p class="fw-bolder">You are logged in with METAMASK adress: {{getMetamaskAddress()}} </p>
   <form>
-      <div class="form-group mx-sm-3 mb-2">
-        <label for="inputPassword2" class="fw-bolder fs-6">Wallet Key </label>
-        <input type="password" name = 'password' class="form-control"  [(ngModel)]="metamaskPrivateKey" id="inputPassword2" placeholder="Insert Your MetaMask private key to omit confirmation in plugin.">
+    <div class="form-group row mb-2">
+      <label for="mmAdress" class="col-sm-2 col-form-label">Metamask adress</label>
+      <div class="col-sm-10">
+        <input type="text" readonly class="form-control-plaintext" id="mmAdress" value="{{metamaskAddress}}" name="mmAdress">
       </div>
-    <div class="form-group mx-sm-3 mb-2">
-      <label class="fw-bolder fs-6">Select certyfiaction type: </label>
-      <br>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="architect" [(ngModel)]="certTypeVal" checked/>
-        <label class="form-check-label" for="inlineRadio1">architect</label>
+    </div>
+    <div class="form-group row mb-2">
+      <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Certyfication type</label>
+      <div class="col-sm-10 mt-2">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [(ngModel)]="certTypeVal" name="inlineRadioOptions" id="inlineRadio1" value="architect">
+          <label class="form-check-label" for="inlineRadio1">architect</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" [(ngModel)]="certTypeVal" name="inlineRadioOptions" id="inlineRadio2" value="engagement management">
+          <label class="form-check-label" for="inlineRadio2">engagement management</label>
+        </div>
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="engagement management" [(ngModel)]="certTypeVal"/>
-        <label class="form-check-label" for="inlineRadio2">engagement management</label>
-      </div>
-
-      <div class="input-group mb-3" >
+    </div>
+    <div class="form-group row mb-2">
+      <label for="file" class="col-sm-2 col-form-label">Users file</label>
+      <div class="col-sm-10">
         <input  (change)="onFileChange($event)" type="file" class="form-control fw-bolder fs-6 " id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
       </div>
     </div>
-      <!-- <button type="submit" class="btn btn-outline-secondary fw-bolder fs-6" (click)="this.load()">Load data</button> -->
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-outline-secondary fw-bolder fs-6" (click)="this.load()">Load data</button>
+    </div>
+         
+
   </form>
 </div>
 
-<cert-table>
+<cert-table [currentCertificates] = "currentCertificates" 
+            [lapsedCertificates]="lapsedCertificates"
+            [newCertificants]="newCertificants"></cert-table>
 
 
-</cert-table>
-
-<!-- <div *ngIf = 'nftUsers.length > 0' class="p-5  bg-light mb-1" style="margin-top: 15px;">
-
-  <alert></alert>
-
-  <p>{{nftUsers.length}} certificants loaded.</p>
-
-  <button type="button" class="btn btn-secondary mx-sm-1" (click)="safeMintForAll()">Mint NFT for all</button>
-  <button type="button" class="btn btn-secondary mx-sm-1" (click)="burnTokensForAll()">Burn NFT for all</button>
-
-<!--  <table class="table table-striped"  style="margin-top: 15px;">-->
-<!--      <thead>-->
-<!--        <tr>-->
-<!--          <th scope="col">Safe mint</th>-->
-<!--          <th scope="col">Burn</th>-->
-<!--          <th scope="col">Email</th>-->
-<!--          <th scope="col">Hashed Email</th>-->
-<!--          <th scope="col">First Name</th>-->
-<!--          <th scope="col">Last Name</th>-->
-<!--          <th scope="col">Cert Type</th>-->
-<!--          <th scope="col">Cert Level</th>-->
-<!--        </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--        <tr *ngFor="let user of nftUsers">-->
-<!--          <td>-->
-<!--            <div><button (click)="safeMintForUser(user.hashedEmail,user.data_json_base64)"> Safe Mint </button></div>-->
-<!--          </td>-->
-<!--          <td>-->
-<!--            <div><button (click)="burnTokensForUser(user.hashedEmail)"> Burn </button></div>-->
-<!--          </td>-->
-<!--          <td>{{ user.email }} </td>-->
-<!--          <td>{{ user.hashedEmail }} </td>-->
-<!--          <td>{{ user.firstName }} </td>-->
-<!--          <td>{{ user.lastName }}</td>-->
-<!--          <td>{{ user.certType}} </td>-->
-<!--          <td>{{ user.certLevel}} </td>-->
-<!--        </tr>-->
-<!--      </tbody>-->
-<!--  </table>-->
-<!-- </div> --> 

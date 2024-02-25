@@ -1,66 +1,110 @@
-<div *ngIf = 'allCertificates' class="p-3  bg-light mb-1 border" style="margin-top: 10px;">
+<div *ngIf = 'currentCertificates' class="p-3  bg-light mb-1 border" style="margin-top: 10px;">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 
-  <p>{{allCertificates.length}} certificates loaded</p>
+    <li [ngbNavItem]="1">
+      <button ngbNavLink>Lapsed certificates</button>
+      <ng-template ngbNavContent>
+        <div class="form-group">
+          <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Filter certificates:">
+        </div>
+        <table class="table table-striped border"  style="margin-top: 10px;">
+          <thead>
+            <tr>
+              <th scope="col">Token ID </th>
+              <th scope="col">First Name </th>
+              <th scope="col">Last Name </th>
+              <th scope="col">Cert Type </th>
+              <th scope="col">Cert Level </th>
+              <th scope="col" class="text-center">  
+                <button (click)="burnTokensForAll()">Burn all</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr *ngFor="let cert of lapsedCertificates | cert:filter">
+              <td>{{ cert.tokenID }} </td>
+              <td>{{ cert.firstName }} </td>
+              <td>{{ cert.lastName }} </td>
+              <td>{{ cert.certType }} </td>
+              <td>{{ cert.certLevel }} </td>
+              <td class="text-center">   
+                  <button (click)="burnOneToken(cert.tokenID)"> Burn </button>
+              </td>
+          </tbody>
+        </table>
+      </ng-template>
+    </li>
 
- 
+    <li [ngbNavItem]="2">
+      <button ngbNavLink>Current certificates</button>
+      <ng-template ngbNavContent>
+        <div class="form-group">
+          <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Filter certificates:">
+        </div>
+        <table class="table table-striped border"  style="margin-top: 10px;">
+          <thead>
+            <tr>
+              <th scope="col">Token ID </th>
+              <th scope="col">First Name </th>
+              <th scope="col">Last Name </th>
+              <th scope="col">Cert Type </th>
+              <th scope="col">Cert Level </th>
+              <th scope="col" class="text-center">
+                <button (click)="burnTokensForAll()">Burn all</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr *ngFor="let cert of currentCertificates | cert:filter">
+              <td>{{ cert.tokenID }} </td>
+              <td>{{ cert.firstName }} </td>
+              <td>{{ cert.lastName }} </td>
+              <td>{{ cert.certType }} </td>
+              <td>{{ cert.certLevel }} </td>
+              <td class="text-center">   
+                  <button (click)="burnOneToken(cert.tokenID)"> Burn </button>
+              </td>
+          </tbody>
+        </table>
+      </ng-template>
+    </li>
 
-      <table class="table table-striped border"  style="margin-top: 10px;">
-        <thead>
-          <tr>
-            <th scope="col">Token ID </th>
-            <th scope="col">First Name </th>
-            <th scope="col">Last Name </th>
-            <th scope="col">Cert Type </th>
-            <th scope="col">Cert Level </th>
-          </tr>
-        </thead>
-        <tbody>
-           <tr *ngFor="let cert of allCertificates">
-            <td>{{ cert.tokenID }} </td>
-            <td>{{ cert.firstName }} </td>
-            <td>{{ cert.lastName }} </td>
-            <td>{{ cert.certType }} </td>
-            <td>{{ cert.certLevel }} </td>
-           </tr>
-        </tbody>
-      </table>
-
-
-
-  <!-- <button type="button" class="btn btn-secondary mx-sm-1" (click)="safeMintForAll()">Mint NFT for all</button>
-  <button type="button" class="btn btn-secondary mx-sm-1" (click)="burnTokensForAll()">Burn NFT for all</button> -->
+    <li [ngbNavItem]="3">
+      <button ngbNavLink>New certificants</button>
+      <ng-template ngbNavContent>
+        <div class="form-group">
+          <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Filter certificants:">
+        </div>
+        <table class="table table-striped"  style="margin-top: 15px;">
+          <thead>
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Cert Type</th>
+              <th scope="col">Cert Level</th>
+              <th scope="col" class="text-center">
+                <button (click)="safeMintForAll()">Mint NFT for all</button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of newCertificants | user:filter">
+              <td>{{ user.email }} </td>
+              <td>{{ user.firstName }} </td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.certType}} </td>
+              <td>{{ user.certLevel}} </td>
+              <td class="text-center">   
+                  <button (click)="safeMintForUser(user.hashedEmail,user.data_json_base64)">Safe mint</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+    </li>
+  </ul>
   
-  
-  
-
-<!--  <table class="table table-striped"  style="margin-top: 15px;">-->
-<!--      <thead>-->
-<!--        <tr>-->
-<!--          <th scope="col">Safe mint</th>-->
-<!--          <th scope="col">Burn</th>-->
-<!--          <th scope="col">Email</th>-->
-<!--          <th scope="col">Hashed Email</th>-->
-<!--          <th scope="col">First Name</th>-->
-<!--          <th scope="col">Last Name</th>-->
-<!--          <th scope="col">Cert Type</th>-->
-<!--          <th scope="col">Cert Level</th>-->
-<!--        </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--        <tr *ngFor="let user of nftUsers">-->
-<!--          <td>-->
-<!--            <div><button (click)="safeMintForUser(user.hashedEmail,user.data_json_base64)"> Safe Mint </button></div>-->
-<!--          </td>-->
-<!--          <td>-->
-<!--            <div><button (click)="burnTokensForUser(user.hashedEmail)"> Burn </button></div>-->
-<!--          </td>-->
-<!--          <td>{{ user.email }} </td>-->
-<!--          <td>{{ user.hashedEmail }} </td>-->
-<!--          <td>{{ user.firstName }} </td>-->
-<!--          <td>{{ user.lastName }}</td>-->
-<!--          <td>{{ user.certType}} </td>-->
-<!--          <td>{{ user.certLevel}} </td>-->
-<!--        </tr>-->
-<!--      </tbody>-->
-<!--  </table>-->
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    
 </div>

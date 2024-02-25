@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {NFTUser} from "../model/NFTUser";
 import {Architect} from "../model/Architect";
 import {EM} from "../model/EM";
 
+@Injectable({ providedIn: 'root' })
 export class NFTUserService {
 
      constructor() {};

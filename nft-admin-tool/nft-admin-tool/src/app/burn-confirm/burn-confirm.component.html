@@ -1,0 +1,25 @@
+<div class="modal-header">
+ 			<button
+ 				type="button"
+ 				class="btn-close"
+ 				aria-describedby="modal-title"
+ 				(click)="modal.dismiss('Cross click')"
+ 			></button>
+ 		</div>
+ 		<div class="modal-body">
+			<p><strong>Are you sure you want to burn certificates?</strong></p>
+ 			<p>All information associated will be permanently deleted.</p>
+ 			<p><span class="text-danger">This operation can not be undone.</span></p>
+ 			<p>
+ 				Type MetaMask Private Key:
+ 			</p>
+ 			<form>
+ 				<div class="col-sm-10">
+ 					<input type="password" [(ngModel)]="metamaskPrivateKey" class="form-control" id="privateKey" name="privateKey" placeholder="MetaMask Private Key">
+ 				</div>
+ 			</form>
+ 		</div>
+ 		<div class="modal-footer">
+ 			<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+			<button type="button" class="btn btn-danger" (click)="burnConfirm()">Ok</button>
+ 		</div>

@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {NFTUser} from "../model/NFTUser";
 import {NFTUserService} from "../services/NFTUserService";
 import * as XLSX from 'xlsx';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlertService } from '../_alert';
-import { BlockchainService } from '../services/BlockchainService';
-
-
+import { CertViewerService } from '../services/CertViewerService';
+import { NFTCertificate } from '../model/NFTCertificate';
 
 @Component({
   selector: 'cert-loader',
@@ -14,18 +12,22 @@ import { BlockchainService } from '../services/BlockchainService';
 })
 
 export class CertLoader {
-
-  certificate$: any;
   certTypeVal="";
-  nftUsers: NFTUser[]= [];
-  nftUserService: NFTUserService = new NFTUserService();
-  blockchainService: BlockchainService = new BlockchainService();
   fileContent: any;
-  metamaskPrivateKey:string = "";
+  metamaskAddress:string = String(localStorage.getItem('metamask'));
+  metamaskPrivateKey:string="";
 
+  allCertificates !: NFTCertificate[]
+  nftUsers !: NFTUser[];
+
+  currentCertificates !: NFTCertificate[];
+  lapsedCertificates !: NFTCertificate[];
+  newCertificants !: NFTUser[];
+  
   constructor(
-    private http: HttpClient,
-    public alertService: AlertService) {
+    private alertService: AlertService,
+    private nftUserService: NFTUserService,
+    private certViewerService: CertViewerService) {
     }
 
   onFileChange(evt: any) {
@@ -35,6 +37,11 @@ export class CertLoader {
   }
 
   load(){
+    this.setUsersFromFile();
+    this.setAllCertificates();
+  }
+
+  setUsersFromFile():void {
     if(!this.fileContent)
         throw new Error('No file is chosen');
 
@@ -59,7 +66,39 @@ export class CertLoader {
         reader.readAsBinaryString(this.fileContent);
   }
 
-  getMetamaskAddress(){
-    return String(localStorage.getItem('metamask'));
+  private setAllCertificates(){
+    this.certViewerService.getAllNFTCertificates().pipe().subscribe(data => {
+      
+      this.allCertificates = data;
+            
+      this.currentCertificates = this.allCertificates.filter(cert => {
+        return (cert.certType === 'Architect' && this.nftUsers.some(user => 
+          (user.firstName===cert.firstName && 
+            user.lastName===cert.lastName &&
+            user.certLevel === cert.certLevel)))
+      })
+
+      
+      this.lapsedCertificates = this.allCertificates.filter(cert => {
+        return (cert.certType === 'Architect' && !this.nftUsers.some(user => 
+          (user.firstName===cert.firstName && 
+            user.lastName===cert.lastName &&
+            user.certLevel === cert.certLevel)))
+      })
+
+
+      this.newCertificants = this.nftUsers.filter(user => {
+        return !this.currentCertificates.some(cert => (
+          user.firstName===cert.firstName && 
+            user.lastName===cert.lastName &&
+            user.certLevel === cert.certLevel
+        ))
+      })
+        
+      console.log(this.allCertificates.length)
+      console.log(this.currentCertificates.length)
+      console.log(this.lapsedCertificates.length)
+      console.log(this.newCertificants.length)
+    });
   }
 }

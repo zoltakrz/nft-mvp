@@ -22,7 +22,7 @@
     "@angular/router": "^17.1.1",
     "@azure/msal-angular": "^3.0.5",
     "@azure/msal-browser": "^3.0.2",
-    "@ng-bootstrap/ng-bootstrap": "^13.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",

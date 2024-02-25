@@ -1,10 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component,inject, Input,Type } from '@angular/core';
 import {NFTUser} from "../model/NFTUser";
-import {NFTUserService} from "../services/NFTUserService";
 import { AlertService } from '../_alert';
 import { BlockchainService } from '../services/BlockchainService';
 import { NFTCertificate } from '../model/NFTCertificate';
-import { CertViewerService } from '../services/CertViewerService';
+import { CertPipe } from './cert.pipe';
+import { UserPipe } from './user.pipe';
+import { BurnConfirmComponent } from '../burn-confirm/burn-confirm.component';
+
+
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'cert-table',
@@ -13,43 +19,55 @@ import { CertViewerService } from '../services/CertViewerService';
 
 export class CertTable {
 
-   allCertificates !: NFTCertificate[];
-   active = 1;
+   @Input() currentCertificates !: NFTCertificate[];
+   @Input()lapsedCertificates !: NFTCertificate[];
+   @Input() newCertificants !: NFTUser[];
 
-
-   nftUsers: NFTUser[]= [];
-   nftUserService: NFTUserService = new NFTUserService();
-   blockchainService: BlockchainService = new BlockchainService();
-   metamaskPrivateKey:string = "";
+   active = 2;
+   filter !: string;
 
   constructor(
-    public alertService: AlertService,
-    private certViewerService: CertViewerService) {}
+    private alertService: AlertService,
+    private blockchainService: BlockchainService,
+    private modalService: NgbModal) {}
 
-  ngOnInit(){
-    this.setAllCertificates();
-  }
-
-  private setAllCertificates(){
-    this.certViewerService.getAllNFTCertificates().pipe().subscribe(data => {
-      this.allCertificates = data;
-    })
-  }
 
   async safeMintForUser(hashedEmail	: string, data_json_base64 : string){
-      await this.blockchainService.safemint(hashedEmail,data_json_base64,this.metamaskPrivateKey, this.alertService);
+    //await this.blockchainService.safemint(hashedEmail,data_json_base64,this.metamaskPrivateKey, this.alertService);
   }
   async safeMintForAll(){
-    for (var nftUser of this.nftUsers){
-      await this.safeMintForUser(nftUser.hashedEmail,nftUser.data_json_base64)
-    }
-  }
-  async burnTokensForUser(hashedEmail:string){
-    await this.blockchainService.burnForUser(hashedEmail,this.metamaskPrivateKey,this.alertService);
-  }
-  async burnTokensForAll(){
-      for(var nftUser of this.nftUsers)
-         await this.burnTokensForUser(nftUser.hashedEmail)  
+    // for (var nftUser of this.newCertificants)
+    //   await this.safeMintForUser(nftUser.hashedEmail,nftUser.data_json_base64)
   }
 
+  async burnTokensForAll(){
+    let confirmModal = this.confirmBurn();
+    if (confirmModal.burnConfirm){
+      for(var cert of this.lapsedCertificates)
+        await this.burnToken(cert.tokenID, confirmModal.privateKey)
+    }
+  }
+
+  async burnOneToken(tokenID:number){
+    let confirmModal = this.confirmBurn();
+    if (confirmModal.burnConfirm){
+        await this.burnToken(tokenID, confirmModal.privateKey)
+    }
+  }
+  
+  async burnToken(tokenID:number,metamaskPrivateKey:string ){
+    await this.blockchainService.burn(tokenID, metamaskPrivateKey, this.alertService)
+  }
+
+
+  confirmBurn(){
+    const modalRef = this.modalService.open(BurnConfirmComponent);
+
+    modalRef.result.then((result) => {
+      return {burnConfirm : true, privateKey: result};
+    });
+
+    return {burnConfirm : false, privateKey: ''}
+  }
 }
+

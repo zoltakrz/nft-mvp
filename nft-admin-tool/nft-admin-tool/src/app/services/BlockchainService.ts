@@ -1,6 +1,8 @@
+import { Injectable } from '@angular/core';
 import { Wallet, ethers } from "ethers";
 import { AlertService } from "../_alert";
 
+@Injectable({ providedIn: 'root' })
 export class BlockchainService {
 
   contractABI  = [
@@ -38,7 +40,7 @@ export class BlockchainService {
   async safemint(certificant: string, url: string, walletPrivateKey:string, alertService:AlertService) {
 
     try {
-     let signer = (walletPrivateKey === "") ? await this.provider.getSigner() : new ethers.Wallet(walletPrivateKey, this.provider);
+     let signer = (walletPrivateKey === '') ? await this.provider.getSigner() : new ethers.Wallet(walletPrivateKey, this.provider);
      const contract = new ethers.Contract(this.smartContractAdress, this.contractABI, signer);
 
      const transaction = await contract['safeMint'](this.nftOwner,certificant,url);
@@ -52,7 +54,7 @@ export class BlockchainService {
   async burn(tokenID : number, walletPrivateKey:string, alertService:AlertService) {
 
     try {
-     let signer = (walletPrivateKey === "") ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
+     let signer = (walletPrivateKey === '') ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
      const contract = new ethers.Contract(this.smartContractAdress, this.contractABI, signer);
 
       const transaction = await contract['burn'](tokenID);
@@ -67,7 +69,7 @@ export class BlockchainService {
   async burnForUser(hashedEmail : string, walletPrivateKey:string, alertService:AlertService) {
     try {
 
-      let signer = (walletPrivateKey === "") ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
+      let signer = (walletPrivateKey === '') ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
       const contract = new ethers.Contract(this.smartContractAdress, this.contractABI, signer);
 
       let idsPromise = await contract['certificantTokenIds'](hashedEmail);
