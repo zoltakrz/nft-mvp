@@ -72,6 +72,12 @@ public class NFTCertificateRestAdapter {
         return getAllCerts(filterOutTestCerts, Optional.ofNullable(certType));
     }
 
+    @PutMapping(value = "refreshCache")
+    public ResponseEntity<String> refreshCache() {
+        getNFTCertificatesUseCase.updateCache();
+        return ResponseEntity.ok("updated");
+    }
+
     @NotNull
     private ResponseEntity<MiddlewareResponse> getAllCerts(Predicate<NFTCertificateDTO> filterOutTestCerts, Optional<String> certType) {
         final Predicate<NFTCertificateDTO> filterByCertType = getCertTypeFiltering(certType);

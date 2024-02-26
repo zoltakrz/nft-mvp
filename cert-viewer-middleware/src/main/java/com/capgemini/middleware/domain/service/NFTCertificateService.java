@@ -26,4 +26,9 @@ public class NFTCertificateService implements GetNFTCertificatesUseCase {
     public CertificateSnapshot getAllNFTCertificates() {
         return smartContractFacade.getAllNFTCertificates();
     }
+
+    @Override
+    public void updateCache() {
+        smartContractFacade.updateCache();
+    }
 }

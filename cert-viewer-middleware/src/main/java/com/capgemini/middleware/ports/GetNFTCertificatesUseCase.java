@@ -6,5 +6,5 @@ public interface GetNFTCertificatesUseCase {
     CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail);
     CertificateSnapshot getNFTCertificatesForAddressOfOwner(String addressOfOwner);
     CertificateSnapshot getAllNFTCertificates();
-
+    void updateCache();
 }

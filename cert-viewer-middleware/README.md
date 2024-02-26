@@ -45,6 +45,11 @@ Get all certificates in cache (without ones meant for testing):
 
 {type} -> ARCHITECT or ENGAGEMENT_MANAGEMENT
 
+### refreshCache [PUT]
+
+Refresh Cache of saved certificates:
++ **/v1/refreshCache**
+
 # Generating Java Wrapper class for smart contract
 
 You can find original smart contract in resources
