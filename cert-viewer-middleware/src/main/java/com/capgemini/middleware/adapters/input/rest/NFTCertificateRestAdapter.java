@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 @RestController
 @RequestMapping(value = "/v1", produces = "application/json;charset=UTF-8")
 @AllArgsConstructor
+@CrossOrigin(origins = "https://certviewer.azurewebsites.net/", allowedHeaders = "Requestor-Type", exposedHeaders = "X-Get-Header")
 public class NFTCertificateRestAdapter {
 
     private final GetNFTCertificatesUseCase getNFTCertificatesUseCase;
