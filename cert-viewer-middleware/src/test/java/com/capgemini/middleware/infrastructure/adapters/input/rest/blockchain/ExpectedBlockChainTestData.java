@@ -1,11 +1,11 @@
-package com.capgemini.middleware.infrastructure.adapters.input.rest;
+package com.capgemini.middleware.infrastructure.adapters.input.rest.blockchain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExpectedTestData {
+public class ExpectedBlockChainTestData {
 
     private static Map<String, Map<String, Object>> expectedDataMap;
 

@@ -1,4 +1,4 @@
-package com.capgemini.middleware.infrastructure.adapters.input.rest;
+package com.capgemini.middleware.infrastructure.adapters.input.rest.blockchain;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -17,14 +17,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class NFTCertificateRestAdapterIntegrationTests {
+class BlockChainIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
 
-    List<Map<String,Object>> allData = ExpectedTestData.getAllData();
-    Map<String,Object> token299 = ExpectedTestData.getData("token299");
-    Map<String,Object> token300 = ExpectedTestData.getData("token300");
+    List<Map<String,Object>> allData = ExpectedBlockChainTestData.getAllData();
+    Map<String,Object> token299 = ExpectedBlockChainTestData.getData("token299");
+    Map<String,Object> token300 = ExpectedBlockChainTestData.getData("token300");
 
 
     @Test

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 @Slf4j
 @RestController
@@ -44,7 +45,7 @@ public class NFTCertificateRestAdapter {
         final Predicate<NFTCertificateDTO> filterForCertsWithEmail = cert ->
                 cert.getHashedEmail().equals(Keccak256Encoder.encode(email.toLowerCase()));
 
-        return getAllCerts(filterForCertsWithEmail, Optional.empty());
+        return getAllCerts(List.of(filterForCertsWithEmail));
     }
 
     @GetMapping(value = "/certificates/ofOwner/{address}")
@@ -61,15 +62,14 @@ public class NFTCertificateRestAdapter {
 
     @GetMapping(value = "/certificates")
     public ResponseEntity<MiddlewareResponse> getAllCertificates(@RequestParam(required = false) String certType) {
-        final Predicate<NFTCertificateDTO> filterOutNothing = cert -> true;
-        return getAllCerts(filterOutNothing, Optional.ofNullable(certType));
+        return getAllCerts(List.of(getCertTypeFiltering(certType)));
     }
 
     @GetMapping(value = "/certificatesWithoutTestOnes")
     public ResponseEntity<MiddlewareResponse> getAllCertificatesWithoutTestOnes(@RequestParam(required = false) String certType) {
         final Predicate<NFTCertificateDTO> filterOutTestCerts = cert ->
-                !cert.getLastName().toLowerCase().contains("fortesting");
-        return getAllCerts(filterOutTestCerts, Optional.ofNullable(certType));
+                !cert.getHashedEmail().toLowerCase().equals(Keccak256Encoder.encode("joe.fortesting@capgemini.com"));
+        return getAllCerts(List.of(filterOutTestCerts, getCertTypeFiltering(certType)));
     }
 
     @PutMapping(value = "refreshCache")
@@ -79,14 +79,11 @@ public class NFTCertificateRestAdapter {
     }
 
     @NotNull
-    private ResponseEntity<MiddlewareResponse> getAllCerts(Predicate<NFTCertificateDTO> filterOutTestCerts, Optional<String> certType) {
-        final Predicate<NFTCertificateDTO> filterByCertType = getCertTypeFiltering(certType);
-
+    private ResponseEntity<MiddlewareResponse> getAllCerts(List<Predicate<NFTCertificateDTO>> predicates) {
         final CertificateSnapshot certificateSnapshot = getNFTCertificatesUseCase.getAllNFTCertificates();
 
         final List<ContractCertificates> mappedCertificates = certificateSnapshot.certificates().stream()
-                .filter(filterOutTestCerts)
-                .filter(filterByCertType)
+                .filter(predicates.stream().reduce(x->true, Predicate::and))
                 .map(ContractCertificates::new)
                 .toList();
 
@@ -96,15 +93,15 @@ public class NFTCertificateRestAdapter {
         return new ResponseEntity<>(middlewareResponse, HttpStatus.OK);
     }
 
-    private Predicate<NFTCertificateDTO> getCertTypeFiltering(Optional<String> certType) {
-        if (certType.isEmpty()) {
+    private Predicate<NFTCertificateDTO> getCertTypeFiltering(String certType) {
+        if (certType == null || certType.isBlank()) {
             return cert -> true;
         }
         try {
-            CertType certTypeEnum = CertType.valueOf(certType.get());
+            CertType certTypeEnum = CertType.valueOf(certType);
             return cert -> cert.getCertType() == certTypeEnum;
         } catch(Exception e) {
-            throw new InvalidCertTypeException(e, String.format("Value: {%s} couldn't be mapped to CertType enum", certType.get()));
+            throw new InvalidCertTypeException(e, String.format("Value: {%s} couldn't be mapped to CertType enum", certType));
         }
     }
 }

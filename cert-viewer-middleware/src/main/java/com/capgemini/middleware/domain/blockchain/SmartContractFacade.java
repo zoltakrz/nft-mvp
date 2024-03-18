@@ -13,13 +13,14 @@ import java.net.ConnectException;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Slf4j
-public class SmartContractFacade {
+public class SmartContractFacade implements SmartContractFacadeInterface{
 
     private final BlockchainConnector blockchainConnector;
 
@@ -30,6 +31,7 @@ public class SmartContractFacade {
         this.blockChainCache = getCache();
     }
 
+    @Override
     @Scheduled(cron = "* 0 * * * *") // Cron expression for running every hour
     public void updateCache() {
         BlockChainCache newCache = getCache();
@@ -37,6 +39,7 @@ public class SmartContractFacade {
         this.blockChainCache = newCache;
     }
 
+    @Override
     public CertificateSnapshot getNFTCertificatesForEmail(String hashedEmail) {
         CertToken smartContract = getSmartContract();
         List<BigInteger> tokenIDsForEmail = blockchainConnector.getTokenIDsForEmail(hashedEmail, smartContract);
@@ -46,7 +49,7 @@ public class SmartContractFacade {
 
         return new CertificateSnapshot(certificates, OffsetDateTime.now(ZoneOffset.UTC) + " UTC TimeZone");
     }
-
+    @Override
     public CertificateSnapshot getAllNFTCertificates() {
         List<NFTCertificateDTO> nftCertificateDTOS = blockChainCache.entities().stream()
                 .map(NFTCertificateCacheEntity::nftCertificateDTO).toList();
@@ -79,7 +82,7 @@ public class SmartContractFacade {
 
         OffsetDateTime timestampInUTC = OffsetDateTime.now(ZoneOffset.UTC);
         log.info("Blockchain database has been cached, size: {} entries", entities.size());
-        return new BlockChainCache(entities, timestampInUTC + " UTC TimeZone");
+        return new BlockChainCache(Collections.emptyList(), timestampInUTC + " UTC TimeZone");
     }
 
     private static CertToken getSmartContract() {
