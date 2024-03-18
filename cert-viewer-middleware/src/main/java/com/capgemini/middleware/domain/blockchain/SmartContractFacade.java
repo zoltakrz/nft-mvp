@@ -82,7 +82,7 @@ public class SmartContractFacade implements SmartContractFacadeInterface{
 
         OffsetDateTime timestampInUTC = OffsetDateTime.now(ZoneOffset.UTC);
         log.info("Blockchain database has been cached, size: {} entries", entities.size());
-        return new BlockChainCache(Collections.emptyList(), timestampInUTC + " UTC TimeZone");
+        return new BlockChainCache(entities, timestampInUTC + " UTC TimeZone");
     }
 
     private static CertToken getSmartContract() {
