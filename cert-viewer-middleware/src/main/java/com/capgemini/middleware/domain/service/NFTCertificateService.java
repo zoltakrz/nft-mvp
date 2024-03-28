@@ -1,7 +1,7 @@
 package com.capgemini.middleware.domain.service;
 
 import com.capgemini.middleware.domain.blockchain.CertificateSnapshot;
-import com.capgemini.middleware.domain.blockchain.SmartContractFacade;
+import com.capgemini.middleware.domain.blockchain.SmartContractFacadeInterface;
 import com.capgemini.middleware.domain.utills.Keccak256Encoder;
 import com.capgemini.middleware.ports.GetNFTCertificatesUseCase;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class NFTCertificateService implements GetNFTCertificatesUseCase {
 
-    private final SmartContractFacade smartContractFacade;
+    private final SmartContractFacadeInterface smartContractFacade;
 
     @Override
     public CertificateSnapshot getNFTCertificatesForEmail(String email) {
@@ -25,5 +25,10 @@ public class NFTCertificateService implements GetNFTCertificatesUseCase {
     @Override
     public CertificateSnapshot getAllNFTCertificates() {
         return smartContractFacade.getAllNFTCertificates();
+    }
+
+    @Override
+    public void updateCache() {
+        smartContractFacade.updateCache();
     }
 }
