@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CertLoader } from './certLoader/certLoader.component';
+import { CertLoader } from './cert-loader/certLoader.component';
 import { WalletloginComponent } from './walletlogin-component/walletlogin.component';
 
 const routes: Routes = [

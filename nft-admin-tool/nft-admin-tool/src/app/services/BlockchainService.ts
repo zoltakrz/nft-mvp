@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Wallet, ethers } from "ethers";
 import { AlertService } from "../_alert";
+import { CertViewerService } from '../services/CertViewerService';
 
 @Injectable({ providedIn: 'root' })
 export class BlockchainService {
@@ -37,7 +38,7 @@ export class BlockchainService {
   smartContractAdress = "0x70C0B60E84BDeeC72E855325521d7D51F105239f";
 
 
-  async safemint(certificant: string, url: string, walletPrivateKey:string, alertService:AlertService) {
+  async safemint(certificant: string, url: string, walletPrivateKey:string, certViewerService:CertViewerService, alertService:AlertService) {
 
     try {
      let signer = (walletPrivateKey === '') ? await this.provider.getSigner() : new ethers.Wallet(walletPrivateKey, this.provider);
@@ -46,12 +47,13 @@ export class BlockchainService {
      const transaction = await contract['safeMint'](this.nftOwner,certificant,url);
       await transaction.wait();
       alertService.success('Tokens minted successfully!',{autoClose:true });
+      certViewerService.refreshCache();
     } catch (error) {
       alertService.error('Error minting NFT ' + error, {autoClose:true })
     }
   }
   
-  async burn(tokenID : number, walletPrivateKey:string, alertService:AlertService) {
+  async burn(tokenID : number, walletPrivateKey:string, certViewerService:CertViewerService, alertService:AlertService) {
 
     try {
      let signer = (walletPrivateKey === '') ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
@@ -60,13 +62,14 @@ export class BlockchainService {
       const transaction = await contract['burn'](tokenID);
       await transaction.wait();
       alertService.success('Tokens burnt successfully! ' + tokenID.toString(),{autoClose:true });
+      certViewerService.refreshCache();
 
     } catch (error) {
       alertService.error('Error burning NFT ' + error,{autoClose:true })
     }
   }
 
-  async burnForUser(hashedEmail : string, walletPrivateKey:string, alertService:AlertService) {
+  async burnForUser(hashedEmail : string, walletPrivateKey:string, certViewerService:CertViewerService, alertService:AlertService) {
     try {
 
       let signer = (walletPrivateKey === '') ? (await this.provider.getSigner()) : new ethers.Wallet(walletPrivateKey, this.provider);
@@ -86,6 +89,7 @@ export class BlockchainService {
         await transaction.wait();
         alertService.success('Tokens burnt successfully! ' + idNum.toString(),{autoClose:true });
       }
+      certViewerService.refreshCache();
     } catch (error) {
       alertService.error('Error burning NFT ' + error,{autoClose:true })
     }

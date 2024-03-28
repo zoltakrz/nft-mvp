@@ -5,6 +5,7 @@ import * as XLSX from 'xlsx';
 import { AlertService } from '../_alert';
 import { CertViewerService } from '../services/CertViewerService';
 import { NFTCertificate } from '../model/NFTCertificate';
+import { CertDataContainerComponent } from '../cert-data-container/cert-data-container.component';
 
 @Component({
   selector: 'cert-loader',
@@ -94,11 +95,6 @@ export class CertLoader {
             user.certLevel === cert.certLevel
         ))
       })
-        
-      console.log(this.allCertificates.length)
-      console.log(this.currentCertificates.length)
-      console.log(this.lapsedCertificates.length)
-      console.log(this.newCertificants.length)
     });
   }
 }

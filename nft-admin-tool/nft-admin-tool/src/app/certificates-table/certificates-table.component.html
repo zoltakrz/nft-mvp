@@ -1,0 +1,28 @@
+<div class="form-group">
+    <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Filter certificates:">
+  </div>
+  <table class="table table-striped border"  style="margin-top: 10px;">
+    <thead>
+      <tr>
+        <th scope="col">Token ID </th>
+        <th scope="col">First Name </th>
+        <th scope="col">Last Name </th>
+        <th scope="col">Cert Type </th>
+        <th scope="col">Cert Level </th>
+        <th scope="col" class="text-center">  
+          <button (click)="burnTokensForAll()">Burn all</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let cert of certificates | cert:filter">
+        <td>{{ cert.tokenID }} </td>
+        <td>{{ cert.firstName }} </td>
+        <td>{{ cert.lastName }} </td>
+        <td>{{ cert.certType }} </td>
+        <td>{{ cert.certLevel }} </td>
+        <td class="text-center">   
+            <button (click)="burnOneToken(cert.tokenID)"> Burn </button>
+        </td>
+    </tbody>
+  </table>

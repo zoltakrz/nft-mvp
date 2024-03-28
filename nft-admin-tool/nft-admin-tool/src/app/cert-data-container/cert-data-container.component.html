@@ -1,0 +1,26 @@
+<div *ngIf = 'currentCertificates' class="p-3  bg-light mb-1 border" style="margin-top: 10px;">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+  
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>Lapsed certificates</button>
+        <ng-template ngbNavContent>
+          <certificates-table [certificates]="lapsedCertificates"></certificates-table>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>Current certificates</button>
+        <ng-template ngbNavContent>
+          <certificates-table [certificates]="currentCertificates"></certificates-table>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <button ngbNavLink>New certificants</button>
+        <ng-template ngbNavContent>
+          <certificants-table [certificants]="newCertificants"></certificants-table>
+        </ng-template>
+      </li>
+    </ul>
+    
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      
+  </div>

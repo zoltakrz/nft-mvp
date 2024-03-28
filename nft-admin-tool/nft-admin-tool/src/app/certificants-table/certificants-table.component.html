@@ -1,0 +1,29 @@
+<div class="form-group">
+    <input type="search" class="form-control" [(ngModel)]="filter" placeholder="Filter certificants:">
+  </div>
+  <table class="table table-striped"  style="margin-top: 15px;">
+    <thead>
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Cert Type</th>
+        <th scope="col">Cert Level</th>
+        <th scope="col" class="text-center">
+          <button (click)="safeMintAllCerts()">Mint NFT for all</button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of certificants | user:filter">
+        <td>{{ user.email }} </td>
+        <td>{{ user.firstName }} </td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.certType}} </td>
+        <td>{{ user.certLevel}} </td>
+        <td class="text-center">   
+            <button (click)="safeMintOneCert(user.hashedEmail,user.data_json_base64)">Safe mint</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

@@ -73,7 +73,9 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "proxyConfig": "src/proxy.conf.json"
+            //"proxyConfig": "src/proxy.conf.json"
+            "port": 3000,
+            "host": "localhost"
           }
         },
         "extract-i18n": {

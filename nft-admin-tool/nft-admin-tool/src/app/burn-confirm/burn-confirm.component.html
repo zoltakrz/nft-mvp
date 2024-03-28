@@ -3,7 +3,7 @@
  				type="button"
  				class="btn-close"
  				aria-describedby="modal-title"
- 				(click)="modal.dismiss('Cross click')"
+ 				(click)="modal.close()"
  			></button>
  		</div>
  		<div class="modal-body">
@@ -20,6 +20,6 @@
  			</form>
  		</div>
  		<div class="modal-footer">
- 			<button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-			<button type="button" class="btn btn-danger" (click)="burnConfirm()">Ok</button>
+ 			<button type="button" type ="submit" class="btn btn-outline-secondary" (click)="modal.close()">Cancel</button>
+			<button type="button" type ="submit" class="btn btn-danger" (click)="modal.close(metamaskPrivateKey)">Ok</button>
  		</div>
