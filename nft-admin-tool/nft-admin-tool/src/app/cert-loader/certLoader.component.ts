@@ -9,7 +9,7 @@ import { CertDataContainerComponent } from '../cert-data-container/cert-data-con
 
 @Component({
   selector: 'cert-loader',
-   templateUrl: './certloader.component.html',
+   templateUrl: './certLoader.component.html',
 })
 
 export class CertLoader {
