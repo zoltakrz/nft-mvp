@@ -19,14 +19,14 @@ export class CertViewerService {
     constructor(protected http: HttpClient){}
 
     getAllNFTCertificates() : Observable<NFTCertificate[]> {
-        return  this.http.get<CertificateResponse>('http://certviewer-middleware.azurewebsites.net/v1/certificates').pipe(
+        return  this.http.get<CertificateResponse>('https://certviewer-middleware.azurewebsites.net/v1/certificates').pipe(
               timeout(10000),
               map(response => response.certificates)
         );
     }
 
     refreshCache() {
-        return this.http.put('http://certviewer-middleware.azurewebsites.net/v1/refreshCache',{}).pipe(timeout(10000));
+        return this.http.put('https://certviewer-middleware.azurewebsites.net/v1/refreshCache',{}).pipe(timeout(10000));
     }
 
 
