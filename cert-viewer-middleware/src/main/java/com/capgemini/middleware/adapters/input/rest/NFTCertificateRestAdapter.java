@@ -16,20 +16,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/v1", produces = "application/json;charset=UTF-8")
 @AllArgsConstructor
-@CrossOrigin(
-        origins = {"https://certviewer.azurewebsites.net/", "https://nftadmintool.azurewebsites.net/", "http://localhost:3000", "http://localhost:4200"},
-        allowedHeaders = "Requestor-Type",
-        exposedHeaders = "X-Get-Header",
-        methods = {RequestMethod.GET, RequestMethod.PUT}
-)
 public class NFTCertificateRestAdapter {
 
     private final GetNFTCertificatesUseCase getNFTCertificatesUseCase;
@@ -89,7 +81,7 @@ public class NFTCertificateRestAdapter {
         final CertificateSnapshot certificateSnapshot = getNFTCertificatesUseCase.getAllNFTCertificates();
 
         final List<ContractCertificates> mappedCertificates = certificateSnapshot.certificates().stream()
-                .filter(predicates.stream().reduce(x->true, Predicate::and))
+                .filter(predicates.stream().reduce(x -> true, Predicate::and))
                 .map(ContractCertificates::new)
                 .toList();
 
@@ -106,7 +98,7 @@ public class NFTCertificateRestAdapter {
         try {
             CertType certTypeEnum = CertType.valueOf(certType);
             return cert -> cert.getCertType() == certTypeEnum;
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new InvalidCertTypeException(e, String.format("Value: {%s} couldn't be mapped to CertType enum", certType));
         }
     }
