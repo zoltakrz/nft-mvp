@@ -1,0 +1,15 @@
+<form class = 'mt-2'>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Text prompt" aria-label="Text prompt" aria-describedby="button-addon2" [(ngModel)]="textPrompt" name="textPrompt" >
+        <button class="btn btn-outline-secondary" (click)="this.sendTextPrompt()" type="submit" id="button-addon2">Answer text</button>
+    </div>
+</form>
+
+<form class = 'mt-2'>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Image prompt" aria-label="Image prompt" aria-describedby="button-addon3" [(ngModel)]="imagePrompt" name="imagePrompt" >
+        <button class="btn btn-outline-secondary" (click)="this.sendImagePrompt()" type="submit" id="button-addon3">Answer image</button>
+    </div>
+</form>
+
+
